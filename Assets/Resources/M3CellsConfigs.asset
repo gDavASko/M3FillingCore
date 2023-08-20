@@ -12,4 +12,100 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa8cda1efd7ec564fb1b563b849221f2, type: 3}
   m_Name: M3CellsConfigs
   m_EditorClassIdentifier: 
-  configs: []
+  configs:
+  - id:
+      id: Level_0
+    obj:
+      SlotCells:
+      - CellType: gen_1
+        Cells:
+        - Position: {x: 0, y: 0}
+          FillType: banana
+          CoverType: 
+          GeneratorType: standart
+          IsEmptySlot: 0
+        - Position: {x: 0, y: 1}
+          FillType: icecream
+          CoverType: 
+          GeneratorType: standart
+          IsEmptySlot: 0
+        - Position: {x: 0, y: 2}
+          FillType: pancake
+          CoverType: 
+          GeneratorType: standart
+          IsEmptySlot: 0
+        - Position: {x: 0, y: 3}
+          FillType: macaron
+          CoverType: 
+          GeneratorType: standart
+          IsEmptySlot: 0
+        - Position: {x: 0, y: 4}
+          FillType: apple
+          CoverType: 
+          GeneratorType: standart
+          IsEmptySlot: 0
+        - Position: {x: 0, y: 4}
+          FillType: cocos
+          CoverType: 
+          GeneratorType: standart
+          IsEmptySlot: 0
+        - Position: {x: 1, y: 0}
+          FillType: banana
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 1, y: 1}
+          FillType: icecream
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 1, y: 2}
+          FillType: pancake
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 1, y: 3}
+          FillType: macaron
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 1, y: 4}
+          FillType: apple
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 1, y: 0}
+          FillType: cocos
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 2, y: 0}
+          FillType: banana
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 2, y: 1}
+          FillType: pancake
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 2, y: 2}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 1
+        - Position: {x: 2, y: 3}
+          FillType: icecream
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 2, y: 4}
+          FillType: icecream
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 2, y: 5}
+          FillType: icecream
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0

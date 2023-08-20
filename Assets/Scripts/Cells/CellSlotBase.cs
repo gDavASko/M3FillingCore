@@ -39,6 +39,7 @@ public class CellSlotBase : MonoBehaviour, ICellSlot
 
         InitComponent<IChip>(chip, _chip, _chipTrs);
         chip.OnReleased += OnChipLose;
+        chip.SetSlot(this);
     }
 
     public void SetCover(ICover cover)

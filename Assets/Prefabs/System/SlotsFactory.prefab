@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4013502746138313973}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SlotsView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3319279431523556509}
   - component: {fileID: 663665036970043950}
-  m_Layer: 0
+  - component: {fileID: 1427657648}
+  - component: {fileID: 1427657649}
+  - component: {fileID: 8371325146965779807}
+  m_Layer: 8
   m_Name: SlotsFactory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -80,3 +83,69 @@ MonoBehaviour:
   _slotsRoot: {fileID: 4013502746138313973}
   _scaleMultPositions: {x: 1, y: 1}
   _slotsZCoordinate: -0.1
+--- !u!114 &1427657648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8768039028126017629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23e931eed5b4b8a4f9f4df91e3eafb56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentsSettings:
+    objectIds:
+    - id:
+        id: cold
+      obj: {fileID: 6551439072426463749, guid: 21cce5262d7e05940bd7355d25b2b372, type: 3}
+--- !u!114 &1427657649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8768039028126017629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb05350041179fc498655c2c1f7f099b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentsSettings:
+    objectIds:
+    - id:
+        id: banana
+      obj: {fileID: 2316355022922041985, guid: 0da42c687b4b66045aaac03733981a1f, type: 3}
+    - id:
+        id: icecream
+      obj: {fileID: 8827199768298263824, guid: c37ecefd61e606f41886907947fc079c, type: 3}
+    - id:
+        id: pancake
+      obj: {fileID: 8190302693241210215, guid: 6df068ccbd202ca428a4b4655b429457, type: 3}
+    - id:
+        id: macaron
+      obj: {fileID: 5845780608029105799, guid: 59172a0cb7d62524d922afa02f4a4723, type: 3}
+    - id:
+        id: apple
+      obj: {fileID: 8195926462867325975, guid: fec97495766eccd4b9e7aaf5928bb4a0, type: 3}
+    - id:
+        id: cocos
+      obj: {fileID: 2221673316175214991, guid: 94f8c806826e9dd40aa947fbd1d3a9cc, type: 3}
+--- !u!114 &8371325146965779807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8768039028126017629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1ab0decfb7d34147903824c3e086f10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentsSettings:
+    objectIds:
+    - id:
+        id: standart
+      obj: {fileID: 3059808256361769765, guid: 37c093b9428a4384d94e590ce852fffe, type: 3}

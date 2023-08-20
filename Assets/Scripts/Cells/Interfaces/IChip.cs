@@ -2,7 +2,10 @@
 
 public interface IChip: IPoolable<IChip>
 {
-    void SetPoolReleaser(IPoolReleaser<IChip> poolReleaser);
+    System.Action<IChip> OnClick { get; set; }
+    bool Interactive { get; }
+
+    void SetSlot(ICellSlot slot);
     void MoveAnimated(ICellSlot toSlot);
     void DestroyAnimated();
 }
