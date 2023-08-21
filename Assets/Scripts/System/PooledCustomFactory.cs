@@ -39,7 +39,9 @@ public class PooledCustomFactory<T> : MonoBehaviour, IComponentFactory<T>, IPool
 
         if (go == default)
         {
-            Debug.LogError($"[{nameof(PooledCustomFactory<T>)}] Try to instance non exists component with ID [{id}]");
+            if(id != null && id != "")
+                Debug.LogError($"[{nameof(PooledCustomFactory<T>)}] Try to instance non exists component with ID [{id}]");
+
             return null;
         }
 

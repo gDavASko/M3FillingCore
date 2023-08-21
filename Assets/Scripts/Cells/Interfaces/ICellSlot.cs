@@ -3,6 +3,7 @@ using UnityEngine;
 
 public interface ICellSlot: IPoolable<ICellSlot>
 {
+    CellConfig Info { get; }
     bool CanPutChip { get; }
     System.Action<ICellSlot> OnCellFree { get; set; }
 

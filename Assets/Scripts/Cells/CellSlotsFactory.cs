@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -5,7 +6,6 @@ public class CellSlotsFactory : MonoBehaviour, ICellSlotsFactory
 {
     [SerializeField] private GameObject _slotPrefab = default;
     [SerializeField] private Transform _slotsRoot = null;
-    [SerializeField] private Vector2 _scaleMultPositions = Vector2.one;
     [SerializeField] private float _slotsZCoordinate = 0f;
 
     private IObjectPool<ICellSlot> _pool = null;
@@ -14,13 +14,22 @@ public class CellSlotsFactory : MonoBehaviour, ICellSlotsFactory
     private IComponentFactory<ICover> _coverFactory = null;
     private IComponentFactory<IGenerator> _generatorFactory = null;
 
+    private SlotEvents _slotEvents = null;
+    private GameParameters _parameters = null;
+    private Vector2 _scaleMultPositions = Vector2.one;
+    private Vector3 _positionOffset = Vector2.zero;
+
     public bool Inited { get; private set; } = false;
 
-    public void Construct(IComponentFactory<IChip> componentFactory, IComponentFactory<ICover> coverFactory, IComponentFactory<IGenerator> generatorFactory)
+    public void Construct(IComponentFactory<IChip> componentFactory, IComponentFactory<ICover> coverFactory,
+        IComponentFactory<IGenerator> generatorFactory, SlotEvents slotEvents, GameParameters parameters)
     {
         _chipFactory = componentFactory;
         _coverFactory = coverFactory;
         _generatorFactory = generatorFactory;
+
+        _slotEvents = slotEvents;
+        _parameters = parameters;
 
         _pool = new ObjectPool<ICellSlot>(OnCreateSlot, OnGetSlot,
             OnReleaseSlot, OnDestroySlot, false, 64);
@@ -30,10 +39,14 @@ public class CellSlotsFactory : MonoBehaviour, ICellSlotsFactory
 
     public void CreateSlots(CellsSlotsConfig configs)
     {
+        CalculateCellVariables(configs);
+
         foreach (var config in configs.SlotCells)
         {
             CreateComponents(config);
         }
+
+        _slotEvents.OnSlotsViewCreated?.Invoke();
     }
 
     public void ReleaseSlots()
@@ -51,6 +64,9 @@ public class CellSlotsFactory : MonoBehaviour, ICellSlotsFactory
                 _generatorFactory.GetComponentByID(slotInfo.GeneratorType),
                 CalculateCellPosition(slotInfo.Position),
                 slotInfo);
+
+            _slotEvents.OnAddedSlot?.Invoke(cell);
+
             cell.transform.gameObject.SetActive(true);
         }
     }
@@ -60,10 +76,18 @@ public class CellSlotsFactory : MonoBehaviour, ICellSlotsFactory
         Vector3 res = default;
 
         res.z = _slotsZCoordinate;
-        res.x = coordinates.x * _scaleMultPositions.x;
-        res.y = coordinates.y * _scaleMultPositions.y;
+        res.x = (coordinates.x ) * _scaleMultPositions.x;
+        res.y = (coordinates.y) * _scaleMultPositions.y;
+
+        res += _positionOffset;
 
         return res;
+    }
+
+    private void CalculateCellVariables(CellsSlotsConfig configs)
+    {
+        _positionOffset = (configs.FieldSize * -0.5f + new Vector2(0.5f, 0.5f));
+        _scaleMultPositions = new Vector2(1f, 1f);
     }
 
     #region IPoolObject

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Pool;
 
-public class ChipObjectBase : MonoBehaviour, IChip, IPointerClickHandler
+public class ChipObjectBase : MonoBehaviour, IChip
 {
     [SerializeField] private string id = "chip";
 
@@ -19,7 +19,6 @@ public class ChipObjectBase : MonoBehaviour, IChip, IPointerClickHandler
     public string ID => id;
     public Action OnReleased { get; set; }
     public Action<IChip> OnClick { get; set; }
-    public bool Interactive { get; private set; } = true;
 
     private void Awake()
     {
@@ -40,7 +39,6 @@ public class ChipObjectBase : MonoBehaviour, IChip, IPointerClickHandler
 
     public void Release()
     {
-        Interactive = false;
         OnReleased?.Invoke();
 
         if (_pool != null)
@@ -61,13 +59,11 @@ public class ChipObjectBase : MonoBehaviour, IChip, IPointerClickHandler
     public void SetSlot(ICellSlot slot)
     {
         _slot = slot;
-        Interactive = true;
         transform.localScale = _initScale;
     }
 
     public void MoveAnimated(ICellSlot toSlot)
     {
-        Interactive = false;
         if (_moveAnimator != null)
         {
             _moveAnimator.MoveTo(toSlot);
@@ -81,7 +77,6 @@ public class ChipObjectBase : MonoBehaviour, IChip, IPointerClickHandler
 
     public void DestroyAnimated()
     {
-        Interactive = false;
         if (_destroyAnimator != null)
         {
             _destroyAnimator.AnimatedDestroy();
@@ -95,14 +90,12 @@ public class ChipObjectBase : MonoBehaviour, IChip, IPointerClickHandler
 
     public void DestroySelf()
     {
-        Interactive = false;
         Destroy(this.gameObject);
     }
 
     private void OnEndMove(ICellSlot toSlot)
     {
         toSlot.SetChip(this);
-        Interactive = true;
     }
 
     private IEnumerator MoveToTransformPlay(ICellSlot toSlot)
@@ -135,11 +128,5 @@ public class ChipObjectBase : MonoBehaviour, IChip, IPointerClickHandler
         }
 
         OnAnimatedDestroyComplete();
-    }
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if (Interactive)
-            OnClick?.Invoke(this);
     }
 }

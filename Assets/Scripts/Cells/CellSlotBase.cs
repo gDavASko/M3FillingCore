@@ -17,6 +17,7 @@ public class CellSlotBase : MonoBehaviour, ICellSlot
 
     public string ID => "SlotBase";
 
+    public CellConfig Info => _info;
     public bool CanPutChip => !_info.IsEmptySlot && _cover == null && _chip == null;
 
     public Action<ICellSlot> OnCellFree { get; set; }
@@ -31,6 +32,11 @@ public class CellSlotBase : MonoBehaviour, ICellSlot
         SetCover(cover);
 
         _generator = generator;
+
+        _mainBG.gameObject.SetActive(!info.IsEmptySlot);
+
+        if(_emptyBG != null)
+            _emptyBG.gameObject.SetActive(info.IsEmptySlot);
     }
 
     public void SetChip(IChip chip)
@@ -38,8 +44,12 @@ public class CellSlotBase : MonoBehaviour, ICellSlot
         OnChipLose();
 
         InitComponent<IChip>(chip, _chip, _chipTrs);
-        chip.OnReleased += OnChipLose;
-        chip.SetSlot(this);
+
+        if (chip != null)
+        {
+            chip.OnReleased += OnChipLose;
+            chip.SetSlot(this);
+        }
     }
 
     public void SetCover(ICover cover)

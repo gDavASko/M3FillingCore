@@ -7,16 +7,19 @@ public interface ICellSlotsFactory
     void CreateSlots(CellsSlotsConfig configs);
     void ReleaseSlots();
 
-    void Construct(IComponentFactory<IChip> componentFactory, IComponentFactory<ICover> coverFactory, IComponentFactory<IGenerator> generatorFactory);
+    void Construct(IComponentFactory<IChip> componentFactory, IComponentFactory<ICover> coverFactory,
+        IComponentFactory<IGenerator> generatorFactory, SlotEvents slotEvents, GameParameters parameters);
 }
 
 [System.Serializable]
 public struct CellsSlotsConfig
 {
+    [SerializeField] public Vector2 FieldSize;
     [SerializeField] public CellConfigs[] SlotCells;
 
-    public CellsSlotsConfig(CellConfigs[] slotCells)
+    public CellsSlotsConfig(CellConfigs[] slotCells, Vector2 fieldSize)
     {
+        FieldSize = fieldSize;
         SlotCells = slotCells;
     }
 }
