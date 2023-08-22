@@ -16,7 +16,7 @@ MonoBehaviour:
   - id:
       id: Level_0
     obj:
-      FieldSize: {x: 16, y: 16}
+      FieldSize: {x: 6, y: 6}
       SlotCells:
       - CellType: gen_1
         Cells:

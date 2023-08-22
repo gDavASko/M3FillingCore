@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 public interface ICellLogic: IDisposable, IPointerClickHandler
@@ -6,10 +7,13 @@ public interface ICellLogic: IDisposable, IPointerClickHandler
     System.Action<ICellLogic> OnClick { get; set; }
     bool Interactive { get; }
 
-    ICellSlot LeftCell { get; }
-    ICellSlot UpCell { get; }
-    ICellSlot RightCell { get; }
-    ICellSlot DownCell { get; }
+    ICellLogic LeftCell { get; }
+    ICellLogic UpCell { get; }
+    ICellLogic RightCell { get; }
+    ICellLogic DownCell { get; }
+
+    Transform transform { get; }
+    ICellSlot Slot { get; }
 
     void BuildCellRefs();
 }

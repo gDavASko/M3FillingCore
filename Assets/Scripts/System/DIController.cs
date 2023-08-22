@@ -6,6 +6,8 @@ public class DIController : MonoBehaviour
     [SerializeField] private GameParameters _parameters = null;
     [SerializeField] private GameController _gameController = null;
     [SerializeField] private UIController _uiController = null;
+    [SerializeField] private CameraController _cameraController = null;
+    [SerializeField] private GameViewLogicM3 _gamelogic = null;
 
     [SerializeField] private M3CellsConfigs _configs = null;
 
@@ -15,13 +17,14 @@ public class DIController : MonoBehaviour
     [SerializeReference] private GeneratorFactory _generatorFactory;
 
     private SlotEvents _slotEvents = new SlotEvents();
+    private GameEvents _gameEvents = new GameEvents();
+    private ViewEvents _viewEvents = new ViewEvents();
 
     private void Awake()
     {
-
-
         _factory.Construct(_chipFactory, _coverFactory, _generatorFactory, _slotEvents, _parameters);
-
-        _gameController.Construct(_factory, _slotEvents, _configs);
+        _gamelogic.Construct(_factory, _slotEvents, _gameEvents, _viewEvents);
+        _cameraController.Construct(_viewEvents);
+        _gameController.Construct(_factory,  _configs, _slotEvents, _gameEvents, _viewEvents);
     }
 }

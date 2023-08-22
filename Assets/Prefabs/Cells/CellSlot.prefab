@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2280260840138425948}
   - component: {fileID: 8326595263500469775}
-  - component: {fileID: 2510913513264414947}
+  - component: {fileID: -8093180485489314030}
   m_Layer: 8
   m_Name: CellSlot
   m_TagString: Untagged
@@ -84,7 +84,7 @@ MonoBehaviour:
   _emptyBG: {fileID: 4128926453838724081}
   _coverTrs: {fileID: 2962634342035632021}
   _chipTrs: {fileID: 2457150266528376524}
---- !u!61 &2510913513264414947
+--- !u!61 &-8093180485489314030
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,7 +94,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
