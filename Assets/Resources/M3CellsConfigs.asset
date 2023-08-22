@@ -23,30 +23,30 @@ MonoBehaviour:
         - Position: {x: 0, y: 0}
           FillType: banana
           CoverType: 
-          GeneratorType: standart
+          GeneratorType: 
           IsEmptySlot: 0
         - Position: {x: 0, y: 1}
           FillType: icecream
           CoverType: 
-          GeneratorType: standart
+          GeneratorType: 
           IsEmptySlot: 0
         - Position: {x: 0, y: 2}
           FillType: pancake
           CoverType: 
-          GeneratorType: standart
+          GeneratorType: 
           IsEmptySlot: 0
         - Position: {x: 0, y: 3}
           FillType: macaron
           CoverType: 
-          GeneratorType: standart
+          GeneratorType: 
           IsEmptySlot: 0
         - Position: {x: 0, y: 4}
           FillType: apple
           CoverType: 
-          GeneratorType: standart
+          GeneratorType: 
           IsEmptySlot: 0
         - Position: {x: 0, y: 5}
-          FillType: cocos
+          FillType: apple
           CoverType: 
           GeneratorType: standart
           IsEmptySlot: 0
@@ -78,7 +78,7 @@ MonoBehaviour:
         - Position: {x: 1, y: 5}
           FillType: cocos
           CoverType: 
-          GeneratorType: 
+          GeneratorType: standart
           IsEmptySlot: 0
         - Position: {x: 2, y: 0}
           FillType: banana
@@ -108,5 +108,5 @@ MonoBehaviour:
         - Position: {x: 2, y: 5}
           FillType: icecream
           CoverType: 
-          GeneratorType: 
+          GeneratorType: standart
           IsEmptySlot: 0
