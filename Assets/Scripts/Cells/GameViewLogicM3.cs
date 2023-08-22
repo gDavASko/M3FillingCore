@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class GameViewLogicM3 : MonoBehaviour, IGameViewLogic
 {
-    private ICellSlotsFactory _factory;
+    private ICellSlotsFactory _factory = null;
+    private IComponentFactory<IChip> _chipFactory = null;
 
     private SlotEvents _slotEvents = null;
     private GameEvents _gameEvents = null;
@@ -15,13 +16,15 @@ public class GameViewLogicM3 : MonoBehaviour, IGameViewLogic
 
     private CellsSlotsConfig? _currentConfig = null;
 
-    public void Construct(ICellSlotsFactory factory, SlotEvents slotEvents, GameEvents gameEvents, ViewEvents viewEvents)
+    public void Construct(ICellSlotsFactory factory, IComponentFactory<IChip> chipFactory, SlotEvents slotEvents, GameEvents gameEvents, ViewEvents viewEvents)
     {
         _factory = factory;
+        _chipFactory = chipFactory;
 
         _slotEvents = slotEvents;
         _slotEvents.OnAddedSlot += OnSlotAdded;
         _slotEvents.OnSlotsViewCreated += OnSlotsCreated;
+        _slotEvents.OnSlotAffected += OnSlotAffected;
 
         _gameEvents = gameEvents;
         _gameEvents.OnGameStart += OnGameStart;
@@ -30,17 +33,32 @@ public class GameViewLogicM3 : MonoBehaviour, IGameViewLogic
         _viewEvents.OnLoadView += OnLoadView;
     }
 
+    private void OnSlotAffected(ICellLogic slot)
+    {
+        if (slot.Slot.CurrentChip == null)
+        {
+            if (slot.Slot.Generator != null)
+            {
+                IChip newChip = _chipFactory.GetComponentByID(slot.Slot.Generator.GetNextChipId());
+                slot.ProcessNewChip(newChip);
+            }
+        }
+    }
+
     private void OnSlotAdded(ICellSlot slot)
     {
         _slots.Add(slot);
 
         if (slot.transform.gameObject.TryGetComponent(typeof(ICellLogic), out Component logic))
         {
-            _logics.Add(logic as ICellLogic);
+            ICellLogic logicInst = logic as ICellLogic;
+            logicInst.Init(_slotEvents);
+            _logics.Add(logicInst);
         }
         else
         {
             ICellLogic newLogic = slot.transform.gameObject.AddComponent<CellLogicBase>();
+            newLogic.Init(_slotEvents);
             _logics.Add(newLogic);
         }
     }
@@ -63,6 +81,9 @@ public class GameViewLogicM3 : MonoBehaviour, IGameViewLogic
 
     private void OnGameStart()
     {
-
+        foreach (var slot in _logics)
+        {
+            slot.Interactive = true;
+        }
     }
 }

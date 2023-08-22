@@ -23,7 +23,7 @@ public class DIController : MonoBehaviour
     private void Awake()
     {
         _factory.Construct(_chipFactory, _coverFactory, _generatorFactory, _slotEvents, _parameters);
-        _gamelogic.Construct(_factory, _slotEvents, _gameEvents, _viewEvents);
+        _gamelogic.Construct(_factory, _chipFactory, _slotEvents, _gameEvents, _viewEvents);
         _cameraController.Construct(_viewEvents);
         _gameController.Construct(_factory,  _configs, _slotEvents, _gameEvents, _viewEvents);
     }

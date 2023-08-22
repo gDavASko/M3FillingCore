@@ -1,17 +1,17 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using Random = UnityEngine.Random;
 
 public class CellLogicBase : MonoBehaviour, ICellLogic
 {
     private static readonly float POS_DELTA = 0.01f;
+    private static readonly int MATCH_COUNT = 3;
 
-    [TextArea(17, 1000)]
-    private string comment = "WOW What is that!!!";
+    private SlotEvents _slotEvents = null;
 
-    public bool Interactive { get; private set; } = true;
+    public bool Interactive { get; set; } = false;
 
     public Action<ICellLogic> OnClick { get; set; }
     public ICellLogic LeftCell { get; private set; } = null;
@@ -24,25 +24,122 @@ public class CellLogicBase : MonoBehaviour, ICellLogic
     private ICellSlot _curSlot = null;
     private BoxCollider2D _collider = null;
 
+    public void Init(SlotEvents slotEvents)
+    {
+        if (_slotEvents != null)
+        {
+            UnsubscribeSlot();
+        }
+
+        _slotEvents = slotEvents;
+        SubscribeSlot();
+
+    }
+
     public void BuildCellRefs()
     {
         _curSlot = GetComponent<ICellSlot>();
         StartCoroutine(BuildRefsPlay());
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    public void AffectSlot()
     {
-        if (Interactive)
-            OnClick?.Invoke(this);
+        Slot.Affect();
+        AffectNearSlots();
     }
 
-    public void Dispose()
+    public void ProcessNewChip(IChip chip)
     {
-        LeftCell = null;
-        UpCell = null;
-        RightCell = null;
-        DownCell = null;
+        Slot.SetChip(chip, false);
+        _slotEvents.OnAddedChip?.Invoke();
     }
+
+    private void AffectNearSlots()
+    {
+        _slotEvents.OnSlotAffected?.Invoke(this);
+
+        if(UpCell != null)
+            UpCell.Slot.AffectAsNear();
+
+        if(RightCell != null)
+            RightCell.Slot.AffectAsNear();
+
+        if(DownCell != null)
+            DownCell.Slot.AffectAsNear();
+
+        if(LeftCell != null)
+            LeftCell.Slot.AffectAsNear();
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (!Interactive || Slot.CurrentChip == null)
+            return;
+
+        OnClick?.Invoke(this);
+        var cellsNear = new List<ICellLogic>();
+        ClickNear(ref cellsNear, Slot.CurrentChip.ID);
+
+        if (cellsNear.Count >= MATCH_COUNT)
+        {
+            foreach (ICellLogic logic in cellsNear)
+            {
+                logic.AffectSlot();
+            }
+        }
+        else
+        {
+            Slot.CurrentChip.TweenScale();
+        }
+    }
+
+    public void ClickNear(ref List<ICellLogic> sameChips, string chipId)
+    {
+        if (Slot.CurrentChip != null && Slot.CurrentCover == null
+                                     && Slot.CurrentChip.ID == chipId && !sameChips.Contains(this))
+        {
+            sameChips.Add(this);
+
+            if(UpCell != null)
+                UpCell.ClickNear(ref sameChips, chipId);
+
+            if(RightCell != null)
+                RightCell.ClickNear(ref sameChips, chipId);
+
+            if(DownCell != null)
+                DownCell.ClickNear(ref sameChips, chipId);
+
+            if(LeftCell != null)
+                LeftCell.ClickNear(ref sameChips, chipId);
+        }
+    }
+
+    public void TryPushDownChip()
+    {
+        if (Slot.CurrentCover != null || Slot.Info.IsEmptySlot)
+        {
+            return;
+        }
+
+        if( Slot.CurrentChip != null)
+        {
+            if (!TryMoveChipToSlot(DownCell))
+            {
+
+            }
+        }
+    }
+
+    private bool TryMoveChipToSlot(ICellLogic slot)
+    {
+        if (slot != null && slot.Slot.CanPutChip)
+        {
+            slot.Slot.SetChip(Slot.CurrentChip, true);
+        }
+
+        return false;
+    }
+
 
     private IEnumerator BuildRefsPlay()
     {
@@ -102,5 +199,40 @@ public class CellLogicBase : MonoBehaviour, ICellLogic
                 UpCell = cell;
             }
         }
+    }
+
+    private void OnChipAdded()
+    {
+        if(Slot.CanPutChip && Slot.CurrentChip == null)
+            TryPushDownChip();
+    }
+
+    private void SubscribeSlot()
+    {
+        _slotEvents.OnAddedChip += OnChipAdded;
+    }
+
+    private void UnsubscribeSlot()
+    {
+        _slotEvents.OnAddedChip -= OnChipAdded;
+        _slotEvents = null;
+    }
+
+    private void OnDestroy()
+    {
+        Dispose();
+    }
+
+    public void Dispose()
+    {
+        LeftCell = null;
+        UpCell = null;
+        RightCell = null;
+        DownCell = null;
+
+        _curSlot.Release();
+        _curSlot = null;
+
+        UnsubscribeSlot();
     }
 }

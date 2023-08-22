@@ -1,5 +1,5 @@
 ﻿
 public interface ICover: IPoolable<ICover>
 {
-    void DealDamage();
+    void DealDamage(System.Action OnDestroyCallback);
 }

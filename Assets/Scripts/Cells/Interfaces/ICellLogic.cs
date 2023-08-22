@@ -1,11 +1,12 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public interface ICellLogic: IDisposable, IPointerClickHandler
 {
     System.Action<ICellLogic> OnClick { get; set; }
-    bool Interactive { get; }
+    bool Interactive { get; set; }
 
     ICellLogic LeftCell { get; }
     ICellLogic UpCell { get; }
@@ -15,5 +16,10 @@ public interface ICellLogic: IDisposable, IPointerClickHandler
     Transform transform { get; }
     ICellSlot Slot { get; }
 
+    void Init(SlotEvents slotEvents);
     void BuildCellRefs();
+    void ClickNear(ref List<ICellLogic> sameChips, string chipId);
+    void AffectSlot();
+    void ProcessNewChip(IChip chip);
+    void TryPushDownChip();
 }

@@ -12,6 +12,8 @@ public class CellCoverBase : MonoBehaviour, ICover
     private IDestroyAnimator _destroyAnimator = null;
     private IDamageAnimator _damageAnimator = null;
 
+    private System.Action OnDestroyCallback = null;
+
     private int _dmgCounter = 0;
     private WaitForFixedUpdate _waiter = null;
     private Vector3 initScale = Vector3.one;
@@ -23,6 +25,7 @@ public class CellCoverBase : MonoBehaviour, ICover
     private void Awake()
     {
         initScale = transform.localScale;
+        _dmgCounter = _damageCount;
 
         _destroyAnimator = GetComponent<IDestroyAnimator>();
         if (_destroyAnimator != null)
@@ -59,12 +62,13 @@ public class CellCoverBase : MonoBehaviour, ICover
         _dmgCounter = _damageCount;
     }
 
-    public void DealDamage()
+    public void DealDamage(System.Action OnDestroyCallback)
     {
         _dmgCounter--;
-        if (_dmgCounter == 0)
+        if (_dmgCounter <= 0)
         {
             DestroyAnimated();
+            this.OnDestroyCallback = OnDestroyCallback;
         }
         else
         {
@@ -94,7 +98,7 @@ public class CellCoverBase : MonoBehaviour, ICover
     {
         Vector3 resScale = initScale * 1.1f;
 
-        for (float i = 0; i <= 1; i += 0.01f)
+        for (float i = 0; i <= 1; i += 0.1f)
         {
             transform.localScale = Vector3.Lerp(initScale, resScale, i);
             yield return _waiter;
@@ -106,6 +110,7 @@ public class CellCoverBase : MonoBehaviour, ICover
     private void OnEndDestroy()
     {
         Release();
+        OnDestroyCallback?.Invoke();
     }
 
     private void DamageAnimated()
@@ -125,13 +130,13 @@ public class CellCoverBase : MonoBehaviour, ICover
     {
         Vector3 resScale = initScale * 1.1f;
 
-        for (float i = 0; i <= 1; i += 0.02f)
+        for (float i = 0; i <= 1; i += 0.1f)
         {
             transform.localScale = Vector3.Lerp(initScale, resScale, i);
             yield return _waiter;
         }
 
-        for (float i = 0; i <= 1; i += 0.02f)
+        for (float i = 0; i <= 1; i += 0.1f)
         {
             transform.localScale = Vector3.Lerp(resScale, initScale, i);
             yield return _waiter;

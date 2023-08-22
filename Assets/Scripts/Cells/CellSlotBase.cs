@@ -16,7 +16,9 @@ public class CellSlotBase : MonoBehaviour, ICellSlot
     private CellConfig _info = default;
 
     public string ID => "SlotBase";
-
+    public IChip CurrentChip => _chip;
+    public ICover CurrentCover => _cover;
+    public IGenerator Generator => _generator;
     public CellConfig Info => _info;
     public bool CanPutChip => !_info.IsEmptySlot && _cover == null && _chip == null;
 
@@ -28,7 +30,7 @@ public class CellSlotBase : MonoBehaviour, ICellSlot
     {
         _info = info;
         transform.position = position;
-        SetChip(chip);
+        SetChip(chip, false);
         SetCover(cover);
 
         _generator = generator;
@@ -39,11 +41,40 @@ public class CellSlotBase : MonoBehaviour, ICellSlot
             _emptyBG.gameObject.SetActive(info.IsEmptySlot);
     }
 
-    public void SetChip(IChip chip)
+    public void Affect()
+    {
+        if (_chip == null)
+            return;
+
+        _chip.DestroyAnimated();
+        _chip = null;
+    }
+
+    public void AffectAsNear()
+    {
+        if(_cover != null)
+            _cover.DealDamage(() => { _cover = null;});
+    }
+
+    public void SetChip(IChip chip, bool withAnimation)
     {
         OnChipLose();
 
-        InitComponent<IChip>(chip, _chip, _chipTrs);
+        _chip = chip;
+
+        if (_chip != null)
+        {
+            if (withAnimation)
+            {
+                _chip.MoveAnimated(this);
+            }
+            else
+            {
+                _chip.transform.SetParent(_chipTrs);
+                _chip.transform.localPosition = Vector3.zero;
+                _chip.transform.localScale = Vector3.one;
+            }
+        }
 
         if (chip != null)
         {
@@ -54,7 +85,14 @@ public class CellSlotBase : MonoBehaviour, ICellSlot
 
     public void SetCover(ICover cover)
     {
-        InitComponent<ICover>(cover, _cover, _coverTrs);
+        _cover = cover;
+
+        if (_cover != null)
+        {
+            _cover.transform.SetParent(_coverTrs);
+            _cover.transform.localPosition = Vector3.zero;
+            _cover.transform.localScale = Vector3.one;
+        }
     }
 
     public void Release()
@@ -82,17 +120,6 @@ public class CellSlotBase : MonoBehaviour, ICellSlot
     public void SetPoolContainer(IObjectPool<ICellSlot> pool)
     {
         _pool = pool;
-    }
-
-    private void InitComponent<T>(T component, T slot, Transform container) where T : class, IPoolable<T>
-    {
-        slot = component;
-
-        if (component != null)
-        {
-            component.transform.SetParent(container);
-            component.transform.localPosition = Vector3.zero;
-        }
     }
 
     private void OnChipLose()

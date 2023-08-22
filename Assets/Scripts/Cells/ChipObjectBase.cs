@@ -88,6 +88,11 @@ public class ChipObjectBase : MonoBehaviour, IChip
         }
     }
 
+    public void TweenScale()
+    {
+        StartCoroutine(SimpleTweenPlay());
+    }
+
     public void DestroySelf()
     {
         Destroy(this.gameObject);
@@ -95,7 +100,7 @@ public class ChipObjectBase : MonoBehaviour, IChip
 
     private void OnEndMove(ICellSlot toSlot)
     {
-        toSlot.SetChip(this);
+
     }
 
     private IEnumerator MoveToTransformPlay(ICellSlot toSlot)
@@ -121,12 +126,29 @@ public class ChipObjectBase : MonoBehaviour, IChip
     {
         Vector3 resScale = _initScale * 1.1f;
 
-        for (float i = 0; i <= 1; i += 0.01f)
+        for (float i = 0; i <= 1; i += 0.2f)
         {
             transform.localScale = Vector3.Lerp(_initScale, resScale, i);
             yield return _waiter;
         }
 
         OnAnimatedDestroyComplete();
+    }
+
+    private IEnumerator SimpleTweenPlay()
+    {
+        Vector3 resScale = _initScale * 0.8f;
+
+        for (float i = 0; i <= 1; i += 0.2f)
+        {
+            transform.localScale = Vector3.Lerp(_initScale, resScale, i);
+            yield return _waiter;
+        }
+
+        for (float i = 0; i <= 1; i += 0.2f)
+        {
+            transform.localScale = Vector3.Lerp(resScale, _initScale, i);
+            yield return _waiter;
+        }
     }
 }

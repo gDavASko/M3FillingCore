@@ -5,6 +5,8 @@ public class SlotEvents
 {
     public System.Action<ICellSlot> OnAddedSlot { get; set; }
     public System.Action OnSlotsViewCreated { get; set; }
+    public System.Action<ICellLogic> OnSlotAffected { get; set; }
+    public System.Action OnAddedChip { get; set; }
 }
 
 public class GameEvents

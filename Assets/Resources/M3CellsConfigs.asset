@@ -16,7 +16,7 @@ MonoBehaviour:
   - id:
       id: Level_0
     obj:
-      FieldSize: {x: 6, y: 6}
+      FieldSize: {x: 3, y: 6}
       SlotCells:
       - CellType: gen_1
         Cells:
@@ -72,7 +72,7 @@ MonoBehaviour:
           IsEmptySlot: 0
         - Position: {x: 1, y: 4}
           FillType: apple
-          CoverType: 
+          CoverType: cold
           GeneratorType: 
           IsEmptySlot: 0
         - Position: {x: 1, y: 5}
@@ -106,91 +106,6 @@ MonoBehaviour:
           GeneratorType: 
           IsEmptySlot: 0
         - Position: {x: 2, y: 5}
-          FillType: icecream
-          CoverType: 
-          GeneratorType: 
-          IsEmptySlot: 0
-        - Position: {x: 3, y: 0}
-          FillType: icecream
-          CoverType: 
-          GeneratorType: 
-          IsEmptySlot: 0
-        - Position: {x: 4, y: 0}
-          FillType: icecream
-          CoverType: 
-          GeneratorType: 
-          IsEmptySlot: 0
-        - Position: {x: 5, y: 0}
-          FillType: icecream
-          CoverType: 
-          GeneratorType: 
-          IsEmptySlot: 0
-        - Position: {x: 6, y: 0}
-          FillType: icecream
-          CoverType: 
-          GeneratorType: 
-          IsEmptySlot: 0
-        - Position: {x: 7, y: 0}
-          FillType: icecream
-          CoverType: 
-          GeneratorType: 
-          IsEmptySlot: 0
-        - Position: {x: 8, y: 0}
-          FillType: icecream
-          CoverType: 
-          GeneratorType: 
-          IsEmptySlot: 0
-        - Position: {x: 9, y: 0}
-          FillType: icecream
-          CoverType: 
-          GeneratorType: 
-          IsEmptySlot: 0
-        - Position: {x: 10, y: 0}
-          FillType: icecream
-          CoverType: 
-          GeneratorType: 
-          IsEmptySlot: 0
-        - Position: {x: 11, y: 0}
-          FillType: icecream
-          CoverType: 
-          GeneratorType: 
-          IsEmptySlot: 0
-        - Position: {x: 12, y: 0}
-          FillType: icecream
-          CoverType: 
-          GeneratorType: 
-          IsEmptySlot: 0
-        - Position: {x: 13, y: 0}
-          FillType: icecream
-          CoverType: 
-          GeneratorType: 
-          IsEmptySlot: 0
-        - Position: {x: 14, y: 0}
-          FillType: icecream
-          CoverType: 
-          GeneratorType: 
-          IsEmptySlot: 0
-        - Position: {x: 15, y: 0}
-          FillType: icecream
-          CoverType: 
-          GeneratorType: 
-          IsEmptySlot: 0
-        - Position: {x: 0, y: 15}
-          FillType: icecream
-          CoverType: 
-          GeneratorType: 
-          IsEmptySlot: 0
-        - Position: {x: 15, y: 15}
-          FillType: icecream
-          CoverType: 
-          GeneratorType: 
-          IsEmptySlot: 0
-        - Position: {x: 7, y: 7}
-          FillType: icecream
-          CoverType: 
-          GeneratorType: 
-          IsEmptySlot: 0
-        - Position: {x: 0, y: 7}
           FillType: icecream
           CoverType: 
           GeneratorType: 
