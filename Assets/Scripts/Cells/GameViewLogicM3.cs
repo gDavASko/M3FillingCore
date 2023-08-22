@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameViewLogicM3 : MonoBehaviour, IGameViewLogic
 {
     private ICellSlotsFactory _factory = null;
-    private IComponentFactory<IChip> _chipFactory = null;
+    private IPooledCustomFactory<IChip> _chipFactory = null;
 
     private SlotEvents _slotEvents = null;
     private GameEvents _gameEvents = null;
@@ -16,7 +16,7 @@ public class GameViewLogicM3 : MonoBehaviour, IGameViewLogic
 
     private CellsSlotsConfig? _currentConfig = null;
 
-    public void Construct(ICellSlotsFactory factory, IComponentFactory<IChip> chipFactory, SlotEvents slotEvents, GameEvents gameEvents, ViewEvents viewEvents)
+    public void Construct(ICellSlotsFactory factory, IPooledCustomFactory<IChip> chipFactory, SlotEvents slotEvents, GameEvents gameEvents, ViewEvents viewEvents)
     {
         _factory = factory;
         _chipFactory = chipFactory;
@@ -40,6 +40,7 @@ public class GameViewLogicM3 : MonoBehaviour, IGameViewLogic
             if (slot.Slot.Generator != null)
             {
                 IChip newChip = _chipFactory.GetComponentByID(slot.Slot.Generator.GetNextChipId());
+                newChip.SetPoolReleaser(_chipFactory);
                 slot.ProcessNewChip(newChip);
             }
         }

@@ -8,7 +8,7 @@ public class ChipObjectBase : MonoBehaviour, IChip
 {
     [SerializeField] private string id = "chip";
 
-    private IObjectPool<IChip> _pool = null;
+    private IPoolReleaser<IChip> _pool = null;
     private IChipMoveAnimtor _moveAnimator = null;
     private IDestroyAnimator _destroyAnimator = null;
     private ICellSlot _slot = null;
@@ -43,7 +43,7 @@ public class ChipObjectBase : MonoBehaviour, IChip
 
         if (_pool != null)
         {
-            _pool.Release(this);
+            _pool.ReleaseComponent(this);
         }
         else
         {
@@ -51,7 +51,7 @@ public class ChipObjectBase : MonoBehaviour, IChip
         }
     }
 
-    public void SetPoolContainer(IObjectPool<IChip> pool)
+    public void SetPoolReleaser(IPoolReleaser<IChip> pool)
     {
         _pool = pool;
     }
@@ -59,7 +59,6 @@ public class ChipObjectBase : MonoBehaviour, IChip
     public void SetSlot(ICellSlot slot)
     {
         _slot = slot;
-        transform.localScale = _initScale;
     }
 
     public void MoveAnimated(ICellSlot toSlot)
@@ -71,7 +70,8 @@ public class ChipObjectBase : MonoBehaviour, IChip
         else
         {
             _waiter = new WaitForFixedUpdate();
-            StartCoroutine(MoveToTransformPlay(toSlot));
+            if(gameObject.activeSelf)
+                StartCoroutine(MoveToTransformPlay(toSlot));
         }
     }
 
@@ -84,13 +84,15 @@ public class ChipObjectBase : MonoBehaviour, IChip
         else
         {
             _waiter = new WaitForFixedUpdate();
-            StartCoroutine(DestroyAnimatedPlay());
+            if(gameObject.activeSelf)
+                StartCoroutine(DestroyAnimatedPlay());
         }
     }
 
     public void TweenScale()
     {
-        StartCoroutine(SimpleTweenPlay());
+        if(gameObject.activeSelf)
+            StartCoroutine(SimpleTweenPlay());
     }
 
     public void DestroySelf()

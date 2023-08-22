@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class PooledCustomFactory<T> : MonoBehaviour, IComponentFactory<T>, IPoolReleaser<T> where T : class, IPoolable<T>
+public class PooledCustomFactory<T> : MonoBehaviour, IPooledCustomFactory<T> where T : class, IPoolable<T>
 {
     [SerializeField] private ObjectIdPairContainer<StringID, GameObject> _componentsSettings = null;
 
@@ -25,7 +26,7 @@ public class PooledCustomFactory<T> : MonoBehaviour, IComponentFactory<T>, IPool
 
     public void ReleaseComponent(T component)
     {
-        if (_componentsPool[component.ID] == null)
+        if (!_componentsPool.ContainsKey(component.ID) || _componentsPool[component.ID] == null)
             _componentsPool[component.ID] = new List<T>();
 
         _componentsPool[component.ID].Add(component);

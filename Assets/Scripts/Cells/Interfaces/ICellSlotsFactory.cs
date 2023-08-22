@@ -7,8 +7,8 @@ public interface ICellSlotsFactory
     void CreateSlots(CellsSlotsConfig configs);
     void ReleaseSlots();
 
-    void Construct(IComponentFactory<IChip> componentFactory, IComponentFactory<ICover> coverFactory,
-        IComponentFactory<IGenerator> generatorFactory, SlotEvents slotEvents, GameParameters parameters);
+    void Construct(IPooledCustomFactory<IChip> componentFactory, IPooledCustomFactory<ICover> coverFactory,
+        IPooledCustomFactory<IGenerator> generatorFactory, SlotEvents slotEvents, GameParameters parameters);
 }
 
 [System.Serializable]

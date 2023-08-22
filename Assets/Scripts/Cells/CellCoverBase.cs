@@ -8,7 +8,7 @@ public class CellCoverBase : MonoBehaviour, ICover
     [SerializeField] private string _id = "cover";
     [SerializeField] private int _damageCount = 1;
 
-    private IObjectPool<ICover> _pool = null;
+    private IPoolReleaser<ICover> _pool = null;
     private IDestroyAnimator _destroyAnimator = null;
     private IDamageAnimator _damageAnimator = null;
 
@@ -46,7 +46,7 @@ public class CellCoverBase : MonoBehaviour, ICover
         OnReleased?.Invoke();
         if (_pool != null)
         {
-            _pool.Release(this);
+            _pool.ReleaseComponent(this);
         }
         else
         {
@@ -54,7 +54,7 @@ public class CellCoverBase : MonoBehaviour, ICover
         }
     }
 
-    public void SetPoolContainer(IObjectPool<ICover> pool)
+    public void SetPoolReleaser(IPoolReleaser<ICover> pool)
     {
         _pool = pool;
 

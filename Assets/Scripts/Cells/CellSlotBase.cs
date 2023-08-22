@@ -46,8 +46,12 @@ public class CellSlotBase : MonoBehaviour, ICellSlot
         if (_chip == null)
             return;
 
-        _chip.DestroyAnimated();
+        Debug.LogError($"Start Affect Chip for {name}");
+        var chip = _chip;
         _chip = null;
+
+        chip.SetSlot(null);
+        chip.DestroyAnimated();
     }
 
     public void AffectAsNear()
@@ -62,25 +66,22 @@ public class CellSlotBase : MonoBehaviour, ICellSlot
 
         _chip = chip;
 
-        if (_chip != null)
+        if (_chip == null)
+            return;
+
+        _chip.transform.SetParent(_chipTrs);
+        _chip.transform.localScale = Vector3.one;
+
+        if (withAnimation)
         {
-            if (withAnimation)
-            {
-                _chip.MoveAnimated(this);
-            }
-            else
-            {
-                _chip.transform.SetParent(_chipTrs);
-                _chip.transform.localPosition = Vector3.zero;
-                _chip.transform.localScale = Vector3.one;
-            }
+            _chip.MoveAnimated(this);
+        }
+        else
+        {
+            _chip.transform.localPosition = Vector3.zero;
         }
 
-        if (chip != null)
-        {
-            chip.OnReleased += OnChipLose;
-            chip.SetSlot(this);
-        }
+        _chip.SetSlot(this);
     }
 
     public void SetCover(ICover cover)
@@ -117,17 +118,20 @@ public class CellSlotBase : MonoBehaviour, ICellSlot
         Destroy(this.gameObject);
     }
 
-    public void SetPoolContainer(IObjectPool<ICellSlot> pool)
+    public void SetPoolReleaser(IPoolReleaser<ICellSlot> pool)
     {
-        _pool = pool;
+        //_pool = pool;
     }
 
     private void OnChipLose()
     {
         if (_chip != null)
         {
-            _chip.OnReleased -= OnChipLose;
+            var chip = _chip;
             _chip = null;
+
+            chip.Release();
+            chip = null;
         }
     }
 

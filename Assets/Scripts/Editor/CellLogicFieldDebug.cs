@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEditor;
+using UnityEditor.Graphs;
 
 
 [CustomEditor(typeof(CellLogicBase))]
@@ -12,6 +13,10 @@ public class CellLogicDebugInfo : Editor
 
         string debugInfo = "";
         EditorGUILayout.LabelField("Cell references!");
+
+        GUILayout.Label($"Current Chip: {(component.Slot.CurrentChip == null ? "null" : component.Slot.CurrentChip.transform.name)}");
+        GUILayout.Label($"Current Cover: {(component.Slot.CurrentCover == null ? "null" : component.Slot.CurrentCover.transform.name)}");
+        GUILayout.Label($"Can Put Chip: {component.Slot.CanPutChip}");
 
         debugInfo = component.UpCell != null
             ? $"[{component.UpCell.Slot.Info.Position.x},{component.UpCell.Slot.Info.Position.y}]"

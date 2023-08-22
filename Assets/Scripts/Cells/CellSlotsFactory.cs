@@ -10,9 +10,9 @@ public class CellSlotsFactory : MonoBehaviour, ICellSlotsFactory
 
     private IObjectPool<ICellSlot> _pool = null;
 
-    private IComponentFactory<IChip> _chipFactory = null;
-    private IComponentFactory<ICover> _coverFactory = null;
-    private IComponentFactory<IGenerator> _generatorFactory = null;
+    private IPooledCustomFactory<IChip> _chipFactory = null;
+    private IPooledCustomFactory<ICover> _coverFactory = null;
+    private IPooledCustomFactory<IGenerator> _generatorFactory = null;
 
     private SlotEvents _slotEvents = null;
     private GameParameters _parameters = null;
@@ -21,8 +21,8 @@ public class CellSlotsFactory : MonoBehaviour, ICellSlotsFactory
 
     public bool Inited { get; private set; } = false;
 
-    public void Construct(IComponentFactory<IChip> componentFactory, IComponentFactory<ICover> coverFactory,
-        IComponentFactory<IGenerator> generatorFactory, SlotEvents slotEvents, GameParameters parameters)
+    public void Construct(IPooledCustomFactory<IChip> componentFactory, IPooledCustomFactory<ICover> coverFactory,
+        IPooledCustomFactory<IGenerator> generatorFactory, SlotEvents slotEvents, GameParameters parameters)
     {
         _chipFactory = componentFactory;
         _coverFactory = coverFactory;
@@ -59,11 +59,20 @@ public class CellSlotsFactory : MonoBehaviour, ICellSlotsFactory
         foreach (var slotInfo in config.Cells)
         {
             var cell = _pool.Get();
-            cell.Init(_chipFactory.GetComponentByID(slotInfo.FillType),
-                _coverFactory.GetComponentByID(slotInfo.CoverType),
-                _generatorFactory.GetComponentByID(slotInfo.GeneratorType),
-                CalculateCellPosition(slotInfo.Position),
-                slotInfo);
+
+            var chip = _chipFactory.GetComponentByID(slotInfo.FillType);
+            if(chip != null)
+                chip.SetPoolReleaser(_chipFactory);
+
+            var cover = _coverFactory.GetComponentByID(slotInfo.CoverType);
+            if(cover != null)
+                cover.SetPoolReleaser(_coverFactory);
+
+            var generator = _generatorFactory.GetComponentByID(slotInfo.GeneratorType);
+            if(generator != null)
+                generator.SetPoolReleaser(_generatorFactory);
+
+            cell.Init(chip, cover, generator, CalculateCellPosition(slotInfo.Position), slotInfo);
 
             _slotEvents.OnAddedSlot?.Invoke(cell);
 
@@ -109,7 +118,7 @@ public class CellSlotsFactory : MonoBehaviour, ICellSlotsFactory
 
     private void OnGetSlot(ICellSlot slot)
     {
-        slot.SetPoolContainer(_pool);
+        //slot.SetPoolReleaser(_pool);
     }
     #endregion IPoolObject
 }

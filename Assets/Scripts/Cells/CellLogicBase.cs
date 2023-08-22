@@ -46,18 +46,22 @@ public class CellLogicBase : MonoBehaviour, ICellLogic
     {
         Slot.Affect();
         AffectNearSlots();
+
+        if(UpCell != null)
+            UpCell.TryPushDownChip();
+
+        _slotEvents.OnSlotAffected?.Invoke(this);
     }
 
     public void ProcessNewChip(IChip chip)
     {
+        Debug.LogError($"Process new Chip for {name} for slot {Slot.transform.name}");
         Slot.SetChip(chip, false);
-        _slotEvents.OnAddedChip?.Invoke();
+        TryPushDownChip();
     }
 
     private void AffectNearSlots()
     {
-        _slotEvents.OnSlotAffected?.Invoke(this);
-
         if(UpCell != null)
             UpCell.Slot.AffectAsNear();
 
@@ -116,18 +120,15 @@ public class CellLogicBase : MonoBehaviour, ICellLogic
 
     public void TryPushDownChip()
     {
-        if (Slot.CurrentCover != null || Slot.Info.IsEmptySlot)
-        {
+        //return;
+        if (Slot.CurrentCover != null || Slot.Info.IsEmptySlot || Slot.CurrentChip == null)
             return;
-        }
 
-        if( Slot.CurrentChip != null)
-        {
-            if (!TryMoveChipToSlot(DownCell))
-            {
+        if (DownCell != null)
+            TryMoveChipToSlot(DownCell);
 
-            }
-        }
+        if (UpCell != null)
+            TryMoveChipToSlot(UpCell);
     }
 
     private bool TryMoveChipToSlot(ICellLogic slot)
@@ -135,6 +136,7 @@ public class CellLogicBase : MonoBehaviour, ICellLogic
         if (slot != null && slot.Slot.CanPutChip)
         {
             slot.Slot.SetChip(Slot.CurrentChip, true);
+            _slotEvents.OnSlotAffected?.Invoke(this);
         }
 
         return false;
@@ -203,7 +205,7 @@ public class CellLogicBase : MonoBehaviour, ICellLogic
 
     private void OnChipAdded()
     {
-        if(Slot.CanPutChip && Slot.CurrentChip == null)
+        if(Slot.CurrentChip != null)
             TryPushDownChip();
     }
 
