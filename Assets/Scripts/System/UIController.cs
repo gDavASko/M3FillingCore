@@ -31,7 +31,7 @@ public class UIController : MonoBehaviour
 
     private void EndGame()
     {
-        _panelResult.ShowWithParams(_statistics.Score, () => OnRestartClick());
+        _panelResult.ShowWithParams(_statistics.Score, () => OnStartNext());
     }
 
     private void OnAddScore()
@@ -66,5 +66,10 @@ public class UIController : MonoBehaviour
     {
         _gameEvents.OnGameRestart?.Invoke();
         started = false;
+    }
+
+    private void OnStartNext()
+    {
+        _gameEvents.OnGameNextLevel?.Invoke();
     }
 }

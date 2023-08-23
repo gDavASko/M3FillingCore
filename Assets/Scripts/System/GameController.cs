@@ -18,6 +18,9 @@ public class GameController : MonoBehaviour
         _configs = configs;
 
         _gameEvents = gameEvents;
+        _gameEvents.OnGameNextLevel += OnNextLoad;
+        _gameEvents.OnGameRestart += OnRestartLevel;
+
         _viewEvents = viewEvents;
 
         _slotEvents = slotEvents;
@@ -26,6 +29,16 @@ public class GameController : MonoBehaviour
 
         _statistics = statistics;
 
+        StartGame();
+    }
+
+    private void OnRestartLevel()
+    {
+        _viewEvents.OnLoadView?.Invoke(_currentConfig);
+    }
+
+    private void OnNextLoad()
+    {
         StartGame();
     }
 
@@ -48,6 +61,9 @@ public class GameController : MonoBehaviour
 
     private void OnDestroy()
     {
+        _gameEvents.OnGameNextLevel -= OnNextLoad;
+
         _slotEvents.OnSlotsViewCreated -= OnSlotsCreated;
+        _slotEvents.OnSlotAffected -= AddScoreAndCheck;
     }
 }

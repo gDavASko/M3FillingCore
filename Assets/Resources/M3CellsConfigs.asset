@@ -16,7 +16,7 @@ MonoBehaviour:
   - id:
       id: Level_0
     obj:
-      TargetScore: 30
+      TargetScore: 50
       FieldSize: {x: 4, y: 4}
       SlotCells:
       - CellType: gen_1
@@ -39,7 +39,7 @@ MonoBehaviour:
         - Position: {x: 0, y: 3}
           FillType: 
           CoverType: 
-          GeneratorType: 
+          GeneratorType: icecream_cocoa
           IsEmptySlot: 0
         - Position: {x: 1, y: 0}
           FillType: 
@@ -59,7 +59,7 @@ MonoBehaviour:
         - Position: {x: 1, y: 3}
           FillType: 
           CoverType: 
-          GeneratorType: 
+          GeneratorType: icecream_cocoa
           IsEmptySlot: 0
         - Position: {x: 2, y: 0}
           FillType: 
@@ -79,7 +79,7 @@ MonoBehaviour:
         - Position: {x: 2, y: 3}
           FillType: 
           CoverType: 
-          GeneratorType: 
+          GeneratorType: icecream_cocoa
           IsEmptySlot: 0
         - Position: {x: 3, y: 0}
           FillType: 
@@ -99,7 +99,7 @@ MonoBehaviour:
         - Position: {x: 3, y: 3}
           FillType: 
           CoverType: 
-          GeneratorType: 
+          GeneratorType: icecream_cocoa
           IsEmptySlot: 0
   - id:
       id: Level_1
@@ -132,7 +132,7 @@ MonoBehaviour:
         - Position: {x: 0, y: 4}
           FillType: 
           CoverType: 
-          GeneratorType: standart
+          GeneratorType: apple_banana_icecream
           IsEmptySlot: 0
         - Position: {x: 1, y: 0}
           FillType: 
@@ -157,7 +157,7 @@ MonoBehaviour:
         - Position: {x: 1, y: 4}
           FillType: 
           CoverType: 
-          GeneratorType: standart
+          GeneratorType: apple_banana_icecream
           IsEmptySlot: 0
         - Position: {x: 2, y: 0}
           FillType: 
@@ -182,12 +182,12 @@ MonoBehaviour:
         - Position: {x: 2, y: 4}
           FillType: 
           CoverType: 
-          GeneratorType: standart
+          GeneratorType: apple_banana_icecream
           IsEmptySlot: 0
         - Position: {x: 3, y: 4}
           FillType: 
           CoverType: 
-          GeneratorType: standart
+          GeneratorType: apple_banana_icecream
           IsEmptySlot: 0
         - Position: {x: 3, y: 3}
           FillType: 
@@ -232,7 +232,7 @@ MonoBehaviour:
         - Position: {x: 4, y: 4}
           FillType: 
           CoverType: 
-          GeneratorType: standart
+          GeneratorType: apple_banana_icecream
           IsEmptySlot: 0
   - id:
       id: Level_2

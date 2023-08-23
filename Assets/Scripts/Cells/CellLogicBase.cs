@@ -59,6 +59,7 @@ public class CellLogicBase : MonoBehaviour, ICellLogic
 
     public void ProcessNewChip(IChip chip)
     {
+        _slotEvents.OnChipMoved?.Invoke();
         Slot.SetChip(chip, false, () =>
         {
             TryPushDownChip();
@@ -164,6 +165,7 @@ public class CellLogicBase : MonoBehaviour, ICellLogic
                 var chip = Slot.Chip;
                 Slot.ForgetChip();
 
+                _slotEvents.OnChipMoved?.Invoke();
                 DownCell.Slot.SetChip(chip, true, () =>
                 {
                     if (Slot.Generator != null)
@@ -215,6 +217,7 @@ public class CellLogicBase : MonoBehaviour, ICellLogic
             var chip = Slot.Chip;
             Slot.ForgetChip();
 
+            _slotEvents.OnChipMoved?.Invoke();
             toSlot.Slot.SetChip(chip, true, () =>
             {
                 if (Slot.Generator != null)

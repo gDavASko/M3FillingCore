@@ -16,6 +16,7 @@ public class GameViewLogicM3 : MonoBehaviour, IGameViewLogic
     private List<ICellLogic> _cellGenerators = new List<ICellLogic>();
 
     private CellsSlotsConfig? _currentConfig = null;
+    private Coroutine _accessChangePlay = null;
 
     public void Construct(ICellSlotsFactory factory, IPooledCustomFactory<IChip> chipFactory, SlotEvents slotEvents,
         GameEvents gameEvents, ViewEvents viewEvents)
@@ -27,10 +28,10 @@ public class GameViewLogicM3 : MonoBehaviour, IGameViewLogic
         _slotEvents.OnAddedSlot += OnSlotAdded;
         _slotEvents.OnSlotsViewCreated += OnSlotsCreated;
         _slotEvents.OnGeneratorEmpty += OnSlotGeneratorGenerate;
+        _slotEvents.OnChipMoved += UpdateAccess;
 
         _gameEvents = gameEvents;
         _gameEvents.OnGameStart += OnGameStart;
-        _gameEvents.OnGameRestart += OnGameRestart;
         _gameEvents.OnStartCommand += CheckGenerators;
         _gameEvents.OnGameEnd += OnGameEnd;
 
@@ -38,17 +39,36 @@ public class GameViewLogicM3 : MonoBehaviour, IGameViewLogic
         _viewEvents.OnLoadView += OnLoadView;
     }
 
-    private void OnGameEnd()
+    private void UpdateAccess()
+    {
+        if(_accessChangePlay != null)
+            StopCoroutine(_accessChangePlay);
+
+        _accessChangePlay = StartCoroutine(UpdateInteractives());
+    }
+
+    private IEnumerator UpdateInteractives()
+    {
+        SetInteractiveStates(false);
+        yield return new WaitForSecondsRealtime(0.1f);
+        SetInteractiveStates(true);
+
+    }
+
+    private void SetInteractiveStates(bool state)
     {
         foreach (var slot in _logics)
         {
-            slot.Interactive = false;
+            slot.Interactive = state;
         }
     }
 
-    private void OnGameRestart()
+    private void OnGameEnd()
     {
-        _viewEvents.OnLoadView?.Invoke(_currentConfig.Value);
+        if(_accessChangePlay != null)
+            StopCoroutine(_accessChangePlay);
+
+        SetInteractiveStates(false);
     }
 
     private void OnSlotGeneratorGenerate(ICellLogic slot)
@@ -132,10 +152,10 @@ public class GameViewLogicM3 : MonoBehaviour, IGameViewLogic
 
     private void OnGameStart()
     {
-        foreach (var slot in _logics)
-        {
-            slot.Interactive = true;
-        }
+        if(_accessChangePlay != null)
+            StopCoroutine(_accessChangePlay);
+
+        SetInteractiveStates(true);
     }
 
     private void OnDestroy()
@@ -145,7 +165,6 @@ public class GameViewLogicM3 : MonoBehaviour, IGameViewLogic
         _slotEvents.OnGeneratorEmpty -= OnSlotGeneratorGenerate;
 
         _gameEvents.OnGameStart -= OnGameStart;
-        _gameEvents.OnGameRestart -= OnGameRestart;
         _gameEvents.OnStartCommand -= CheckGenerators;
         _gameEvents.OnGameEnd -= OnGameEnd;
 

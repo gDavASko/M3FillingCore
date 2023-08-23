@@ -8,6 +8,8 @@ public class SlotEvents
     public System.Action OnAddedChip { get; set; }
     public System.Action<ICellLogic> OnGeneratorEmpty { get; set; }
     public System.Action OnSlotAffected { get; set; }
+
+    public System.Action OnChipMoved { get; set; }
 }
 
 public class GameEvents
@@ -15,6 +17,7 @@ public class GameEvents
     public System.Action OnGameStart { get; set; }
     public System.Action OnGameEnd { get; set; }
     public System.Action OnGameRestart { get; set; }
+    public System.Action OnGameNextLevel { get; set; }
     public System.Action OnStartCommand { get; set; }
 }
 
