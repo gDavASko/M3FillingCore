@@ -15,6 +15,8 @@ public class ChipObjectBase : MonoBehaviour, IChip
 
     private Vector3 _initScale = Vector3.one;
     private WaitForFixedUpdate _waiter = null;
+    private System.Action OnMoveCompleteCallback = null;
+    private System.Action OnDestroyCompleteCallback = null;
 
     public string ID => id;
     public Action OnReleased { get; set; }
@@ -39,7 +41,10 @@ public class ChipObjectBase : MonoBehaviour, IChip
 
     public void Release()
     {
+        gameObject.SetActive(false);
         OnReleased?.Invoke();
+
+        _slot = null;
 
         if (_pool != null)
         {
@@ -61,8 +66,9 @@ public class ChipObjectBase : MonoBehaviour, IChip
         _slot = slot;
     }
 
-    public void MoveAnimated(ICellSlot toSlot)
+    public void MoveAnimated(ICellSlot toSlot, System.Action OnMoveComplete)
     {
+        OnMoveCompleteCallback = OnMoveComplete;
         if (_moveAnimator != null)
         {
             _moveAnimator.MoveTo(toSlot);
@@ -71,12 +77,13 @@ public class ChipObjectBase : MonoBehaviour, IChip
         {
             _waiter = new WaitForFixedUpdate();
             if(gameObject.activeSelf)
-                StartCoroutine(MoveToTransformPlay(toSlot));
+                StartCoroutine(MoveToSlotPlay(toSlot));
         }
     }
 
-    public void DestroyAnimated()
+    public void DestroyAnimated(System.Action OnDestroyComplete)
     {
+        OnDestroyCompleteCallback = OnDestroyComplete;
         if (_destroyAnimator != null)
         {
             _destroyAnimator.AnimatedDestroy();
@@ -97,24 +104,28 @@ public class ChipObjectBase : MonoBehaviour, IChip
 
     public void DestroySelf()
     {
+        Debug.LogError($"[{name}] DestroySelf!");
         Destroy(this.gameObject);
     }
 
     private void OnEndMove(ICellSlot toSlot)
     {
-
+        OnMoveCompleteCallback?.Invoke();
+        OnMoveCompleteCallback = null;
     }
 
-    private IEnumerator MoveToTransformPlay(ICellSlot toSlot)
+    private IEnumerator MoveToSlotPlay(ICellSlot toSlot)
     {
-        Vector3 initPos = transform.position;
-        Vector3 targetPos = toSlot.transform.position;
+        Vector3 initPos = transform.localPosition;
+        Vector3 targetPos = Vector3.zero;
 
-        for (float i = 0; i <= 1; i += 0.01f)
+        for (float i = 0; i <= 1f; i += 0.15f)
         {
-            transform.position = Vector3.Lerp(initPos, targetPos, i);
+            transform.localPosition = Vector3.Lerp(initPos, targetPos, i);
             yield return _waiter;
         }
+
+        transform.localPosition = targetPos;
 
         OnEndMove(toSlot);
     }
@@ -122,6 +133,8 @@ public class ChipObjectBase : MonoBehaviour, IChip
     private void OnAnimatedDestroyComplete()
     {
         Release();
+        OnDestroyCompleteCallback?.Invoke();
+        OnDestroyCompleteCallback = null;
     }
 
     private IEnumerator DestroyAnimatedPlay()

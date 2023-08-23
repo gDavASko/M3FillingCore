@@ -26,5 +26,6 @@ public class DIController : MonoBehaviour
         _gamelogic.Construct(_factory, _chipFactory, _slotEvents, _gameEvents, _viewEvents);
         _cameraController.Construct(_viewEvents);
         _gameController.Construct(_factory,  _configs, _slotEvents, _gameEvents, _viewEvents);
+        _uiController.Construct(_gameEvents);
     }
 }

@@ -16,7 +16,8 @@ public class PooledCustomFactory<T> : MonoBehaviour, IPooledCustomFactory<T> whe
             res = components[components.Count - 1];
             components.RemoveAt(components.Count - 1);
         }
-        else
+
+        if(res == null)
         {
             res = CreateComponent(slotInfoFillType);
         }

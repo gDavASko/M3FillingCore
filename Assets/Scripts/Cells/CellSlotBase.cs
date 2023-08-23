@@ -16,8 +16,8 @@ public class CellSlotBase : MonoBehaviour, ICellSlot
     private CellConfig _info = default;
 
     public string ID => "SlotBase";
-    public IChip CurrentChip => _chip;
-    public ICover CurrentCover => _cover;
+    public IChip Chip => _chip;
+    public ICover Cover => _cover;
     public IGenerator Generator => _generator;
     public CellConfig Info => _info;
     public bool CanPutChip => !_info.IsEmptySlot && _cover == null && _chip == null;
@@ -30,7 +30,7 @@ public class CellSlotBase : MonoBehaviour, ICellSlot
     {
         _info = info;
         transform.position = position;
-        SetChip(chip, false);
+        SetChip(chip, false, null);
         SetCover(cover);
 
         _generator = generator;
@@ -41,26 +41,29 @@ public class CellSlotBase : MonoBehaviour, ICellSlot
             _emptyBG.gameObject.SetActive(info.IsEmptySlot);
     }
 
-    public void Affect()
+    public void Affect(System.Action OnAffectComplete)
     {
         if (_chip == null)
             return;
 
-        Debug.LogError($"Start Affect Chip for {name}");
         var chip = _chip;
         _chip = null;
 
         chip.SetSlot(null);
-        chip.DestroyAnimated();
+        chip.DestroyAnimated(OnAffectComplete);
     }
 
-    public void AffectAsNear()
+    public void AffectAsNear(System.Action OnAffectComplete)
     {
         if(_cover != null)
-            _cover.DealDamage(() => { _cover = null;});
+            _cover.DealDamage(() =>
+            {
+                _cover = null;
+                OnAffectComplete?.Invoke();
+            });
     }
 
-    public void SetChip(IChip chip, bool withAnimation)
+    public void SetChip(IChip chip, bool withAnimation, System.Action OnSetComplete)
     {
         OnChipLose();
 
@@ -69,36 +72,44 @@ public class CellSlotBase : MonoBehaviour, ICellSlot
         if (_chip == null)
             return;
 
+        _chip.transform.gameObject.SetActive(true);
+        _chip.SetSlot(this);
         _chip.transform.SetParent(_chipTrs);
         _chip.transform.localScale = Vector3.one;
 
         if (withAnimation)
         {
-            _chip.MoveAnimated(this);
+            _chip.MoveAnimated(this, OnSetComplete);
         }
         else
         {
             _chip.transform.localPosition = Vector3.zero;
+            OnSetComplete?.Invoke();
         }
+    }
 
-        _chip.SetSlot(this);
+    public void ForgetChip()
+    {
+        _chip = null;
     }
 
     public void SetCover(ICover cover)
     {
         _cover = cover;
 
-        if (_cover != null)
-        {
-            _cover.transform.SetParent(_coverTrs);
-            _cover.transform.localPosition = Vector3.zero;
-            _cover.transform.localScale = Vector3.one;
-        }
+        if (_cover == null)
+            return;
+
+        _cover.transform.gameObject.SetActive(true);
+        _cover.transform.SetParent(_coverTrs);
+        _cover.transform.localPosition = Vector3.zero;
+        _cover.transform.localScale = Vector3.one;
     }
 
     public void Release()
     {
         ReleaseComponents();
+        gameObject.SetActive(false);
 
         OnReleased?.Invoke();
 
@@ -108,12 +119,13 @@ public class CellSlotBase : MonoBehaviour, ICellSlot
         }
         else
         {
-            Destroy(this.gameObject);
+            DestroySelf();
         }
     }
 
     public void DestroySelf()
     {
+        Debug.LogError($"[{name}] DestroySelf!");
         ReleaseComponents();
         Destroy(this.gameObject);
     }
@@ -137,13 +149,22 @@ public class CellSlotBase : MonoBehaviour, ICellSlot
 
     private void ReleaseComponents()
     {
-        if(_chip != null)
+        if (_chip != null)
+        {
             _chip.Release();
+            _chip = null;
+        }
 
-        if(_cover != null)
+        if (_cover != null)
+        {
             _cover.Release();
+            _cover = null;
+        }
 
         if (_generator != null)
+        {
             _generator.Release();
+            _generator = null;
+        }
     }
 }

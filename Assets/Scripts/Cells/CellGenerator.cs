@@ -15,7 +15,17 @@ public class CellGenerator : MonoBehaviour, IGenerator
     public Action OnReleased { get; set; }
     public void Release()
     {
+        gameObject.SetActive(false);
         OnReleased?.Invoke();
+
+        if (_pool != null)
+        {
+            _pool.ReleaseComponent(this);
+        }
+        else
+        {
+            DestroySelf();
+        }
     }
 
     public void SetPoolReleaser(IPoolReleaser<IGenerator> pool)
@@ -30,6 +40,7 @@ public class CellGenerator : MonoBehaviour, IGenerator
 
     public void DestroySelf()
     {
+        Debug.LogError($"[{name}] DestroySelf!");
         Destroy(this.gameObject);
     }
 }

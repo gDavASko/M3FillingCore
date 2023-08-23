@@ -13,7 +13,7 @@ public class CellLogicBase : MonoBehaviour, ICellLogic
 
     public bool Interactive { get; set; } = false;
 
-    public Action<ICellLogic> OnClick { get; set; }
+    public bool IsBusy { get; }
     public ICellLogic LeftCell { get; private set; } = null;
     public ICellLogic UpCell { get; private set; } = null;
     public ICellLogic RightCell { get; private set; } = null;
@@ -44,45 +44,48 @@ public class CellLogicBase : MonoBehaviour, ICellLogic
 
     public void AffectSlot()
     {
-        Slot.Affect();
-        AffectNearSlots();
+        Slot.Affect(() =>
+        {
+            if(Slot.Generator != null)
+                _slotEvents.OnGeneratorEmpty?.Invoke(this);
 
-        if(UpCell != null)
-            UpCell.TryPushDownChip();
+            AffectNearSlots();
 
-        _slotEvents.OnSlotAffected?.Invoke(this);
+            if(UpCell != null)
+                UpCell.TryPushDownChip(true);
+        });
     }
 
     public void ProcessNewChip(IChip chip)
     {
-        Debug.LogError($"Process new Chip for {name} for slot {Slot.transform.name}");
-        Slot.SetChip(chip, false);
-        TryPushDownChip();
+        Slot.SetChip(chip, false, () =>
+        {
+            TryPushDownChip(false);
+        });
     }
 
     private void AffectNearSlots()
     {
         if(UpCell != null)
-            UpCell.Slot.AffectAsNear();
+            UpCell.Slot.AffectAsNear(() => UpCell.TryPushDownChip(false));
 
         if(RightCell != null)
-            RightCell.Slot.AffectAsNear();
+            RightCell.Slot.AffectAsNear(() => RightCell.TryPushDownChip(false));
 
         if(DownCell != null)
-            DownCell.Slot.AffectAsNear();
+            DownCell.Slot.AffectAsNear(() => DownCell.TryPushDownChip(false));
 
         if(LeftCell != null)
-            LeftCell.Slot.AffectAsNear();
+            LeftCell.Slot.AffectAsNear(() => LeftCell.TryPushDownChip(false));
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!Interactive || Slot.CurrentChip == null)
+        if (!Interactive || Slot.Chip == null)
             return;
 
-        OnClick?.Invoke(this);
         var cellsNear = new List<ICellLogic>();
-        ClickNear(ref cellsNear, Slot.CurrentChip.ID);
+        ClickNear(ref cellsNear, Slot.Chip.ID);
 
         if (cellsNear.Count >= MATCH_COUNT)
         {
@@ -93,14 +96,14 @@ public class CellLogicBase : MonoBehaviour, ICellLogic
         }
         else
         {
-            Slot.CurrentChip.TweenScale();
+            Slot.Chip.TweenScale();
         }
     }
 
     public void ClickNear(ref List<ICellLogic> sameChips, string chipId)
     {
-        if (Slot.CurrentChip != null && Slot.CurrentCover == null
-                                     && Slot.CurrentChip.ID == chipId && !sameChips.Contains(this))
+        if (Slot.Chip != null && Slot.Cover == null
+                                     && Slot.Chip.ID == chipId && !sameChips.Contains(this))
         {
             sameChips.Add(this);
 
@@ -118,28 +121,45 @@ public class CellLogicBase : MonoBehaviour, ICellLogic
         }
     }
 
-    public void TryPushDownChip()
+    public void TryPushDownChip(bool delayed)
     {
-        //return;
-        if (Slot.CurrentCover != null || Slot.Info.IsEmptySlot || Slot.CurrentChip == null)
+        if (Slot.Cover != null || Slot.Info.IsEmptySlot || Slot.Chip == null)
             return;
 
-        if (DownCell != null)
+        if (delayed)
+        {
+            StartCoroutine(PushDownDelayPlay());
+        }
+        else
+        {
             TryMoveChipToSlot(DownCell);
-
-        if (UpCell != null)
-            TryMoveChipToSlot(UpCell);
+        }
     }
 
-    private bool TryMoveChipToSlot(ICellLogic slot)
+    private IEnumerator PushDownDelayPlay()
+    {
+        yield return new WaitForFixedUpdate();
+        TryMoveChipToSlot(DownCell);
+    }
+
+    private void TryMoveChipToSlot(ICellLogic slot)
     {
         if (slot != null && slot.Slot.CanPutChip)
         {
-            slot.Slot.SetChip(Slot.CurrentChip, true);
-            _slotEvents.OnSlotAffected?.Invoke(this);
-        }
+            var chip = Slot.Chip;
+            Slot.ForgetChip();
 
-        return false;
+            slot.Slot.SetChip(chip, true, () =>
+            {
+                if(Slot.Generator != null)
+                    _slotEvents.OnGeneratorEmpty?.Invoke(this);
+
+                if(UpCell != null)
+                    UpCell.TryPushDownChip(true);
+
+                slot.TryPushDownChip(true);
+            });
+        }
     }
 
 
@@ -205,8 +225,8 @@ public class CellLogicBase : MonoBehaviour, ICellLogic
 
     private void OnChipAdded()
     {
-        if(Slot.CurrentChip != null)
-            TryPushDownChip();
+        if(Slot.Chip != null)
+            TryPushDownChip(true);
     }
 
     private void SubscribeSlot()
@@ -216,6 +236,9 @@ public class CellLogicBase : MonoBehaviour, ICellLogic
 
     private void UnsubscribeSlot()
     {
+        if (_slotEvents == null)
+            return;
+
         _slotEvents.OnAddedChip -= OnChipAdded;
         _slotEvents = null;
     }
@@ -232,8 +255,11 @@ public class CellLogicBase : MonoBehaviour, ICellLogic
         RightCell = null;
         DownCell = null;
 
-        _curSlot.Release();
-        _curSlot = null;
+        if (_curSlot != null)
+        {
+            _curSlot.Release();
+            _curSlot = null;
+        }
 
         UnsubscribeSlot();
     }

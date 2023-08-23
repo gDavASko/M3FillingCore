@@ -17,6 +17,7 @@ public class GameController : MonoBehaviour
     {
         _factory = factory;
         _configs = configs;
+
         _gameEvents = gameEvents;
         _viewEvents = viewEvents;
 

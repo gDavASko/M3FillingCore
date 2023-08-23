@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1aaccc39f80eb4d94c0e424182679b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: generator
+  _id: standart
   _chipVariants:
   - apple
   - cocos

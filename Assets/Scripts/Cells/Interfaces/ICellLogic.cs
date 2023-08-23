@@ -5,7 +5,6 @@ using UnityEngine.EventSystems;
 
 public interface ICellLogic: IDisposable, IPointerClickHandler
 {
-    System.Action<ICellLogic> OnClick { get; set; }
     bool Interactive { get; set; }
 
     ICellLogic LeftCell { get; }
@@ -21,5 +20,5 @@ public interface ICellLogic: IDisposable, IPointerClickHandler
     void ClickNear(ref List<ICellLogic> sameChips, string chipId);
     void AffectSlot();
     void ProcessNewChip(IChip chip);
-    void TryPushDownChip();
+    void TryPushDownChip(bool delayed);
 }

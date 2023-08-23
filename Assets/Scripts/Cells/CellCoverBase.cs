@@ -44,6 +44,9 @@ public class CellCoverBase : MonoBehaviour, ICover
     public void Release()
     {
         OnReleased?.Invoke();
+
+        gameObject.SetActive(false);
+
         if (_pool != null)
         {
             _pool.ReleaseComponent(this);
@@ -78,6 +81,7 @@ public class CellCoverBase : MonoBehaviour, ICover
 
     public void DestroySelf()
     {
+        Debug.LogError($"[{name}] DestroySelf!");
         Destroy(this.gameObject);
     }
 

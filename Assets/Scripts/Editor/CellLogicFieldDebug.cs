@@ -14,8 +14,9 @@ public class CellLogicDebugInfo : Editor
         string debugInfo = "";
         EditorGUILayout.LabelField("Cell references!");
 
-        GUILayout.Label($"Current Chip: {(component.Slot.CurrentChip == null ? "null" : component.Slot.CurrentChip.transform.name)}");
-        GUILayout.Label($"Current Cover: {(component.Slot.CurrentCover == null ? "null" : component.Slot.CurrentCover.transform.name)}");
+        GUILayout.Label($"Current Chip: {(component.Slot.Chip == null ? "null" : component.Slot.Chip.transform.name)}");
+        GUILayout.Label($"Current Cover: {(component.Slot.Cover == null ? "null" : component.Slot.Cover.transform.name)}");
+        GUILayout.Label($"Current Generator: {(component.Slot.Generator == null ? "null" : component.Slot.Generator.transform.name)}");
         GUILayout.Label($"Can Put Chip: {component.Slot.CanPutChip}");
 
         debugInfo = component.UpCell != null
