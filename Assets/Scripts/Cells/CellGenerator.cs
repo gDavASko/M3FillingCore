@@ -15,7 +15,6 @@ public class CellGenerator : MonoBehaviour, IGenerator
     public Action OnReleased { get; set; }
     public void Release()
     {
-        gameObject.SetActive(false);
         OnReleased?.Invoke();
 
         if (_pool != null)
@@ -35,7 +34,7 @@ public class CellGenerator : MonoBehaviour, IGenerator
 
     public string GetNextChipId()
     {
-        return _chipVariants[Random.Range(0, _chipVariants.Length - 1)];
+        return _chipVariants[Random.Range(0, 1000) % _chipVariants.Length];
     }
 
     public void DestroySelf()

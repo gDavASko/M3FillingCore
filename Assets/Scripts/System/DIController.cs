@@ -20,12 +20,15 @@ public class DIController : MonoBehaviour
     private GameEvents _gameEvents = new GameEvents();
     private ViewEvents _viewEvents = new ViewEvents();
 
+    private IStatistics _statistics = new Statistics();
+
     private void Awake()
     {
+        _statistics.Construct(_gameEvents, _slotEvents);
         _factory.Construct(_chipFactory, _coverFactory, _generatorFactory, _slotEvents, _parameters);
         _gamelogic.Construct(_factory, _chipFactory, _slotEvents, _gameEvents, _viewEvents);
         _cameraController.Construct(_viewEvents);
-        _gameController.Construct(_factory,  _configs, _slotEvents, _gameEvents, _viewEvents);
-        _uiController.Construct(_gameEvents);
+        _gameController.Construct(_factory,  _configs, _slotEvents, _gameEvents, _viewEvents, _statistics);
+        _uiController.Construct(_gameEvents, _slotEvents, _statistics);
     }
 }

@@ -16,77 +16,299 @@ MonoBehaviour:
   - id:
       id: Level_0
     obj:
-      FieldSize: {x: 5, y: 6}
+      TargetScore: 30
+      FieldSize: {x: 4, y: 4}
       SlotCells:
       - CellType: gen_1
         Cells:
         - Position: {x: 0, y: 0}
-          FillType: banana
+          FillType: 
           CoverType: 
           GeneratorType: 
           IsEmptySlot: 0
         - Position: {x: 0, y: 1}
-          FillType: icecream
+          FillType: 
           CoverType: 
           GeneratorType: 
           IsEmptySlot: 0
         - Position: {x: 0, y: 2}
-          FillType: pancake
+          FillType: 
           CoverType: 
           GeneratorType: 
           IsEmptySlot: 0
         - Position: {x: 0, y: 3}
-          FillType: macaron
+          FillType: 
           CoverType: 
           GeneratorType: 
-          IsEmptySlot: 0
-        - Position: {x: 0, y: 4}
-          FillType: apple
-          CoverType: 
-          GeneratorType: 
-          IsEmptySlot: 0
-        - Position: {x: 0, y: 5}
-          FillType: apple
-          CoverType: 
-          GeneratorType: standart
           IsEmptySlot: 0
         - Position: {x: 1, y: 0}
-          FillType: banana
+          FillType: 
           CoverType: 
           GeneratorType: 
           IsEmptySlot: 0
         - Position: {x: 1, y: 1}
-          FillType: icecream
+          FillType: 
           CoverType: 
           GeneratorType: 
           IsEmptySlot: 0
         - Position: {x: 1, y: 2}
-          FillType: pancake
+          FillType: 
           CoverType: 
           GeneratorType: 
           IsEmptySlot: 0
         - Position: {x: 1, y: 3}
-          FillType: macaron
+          FillType: 
           CoverType: 
           GeneratorType: 
-          IsEmptySlot: 0
-        - Position: {x: 1, y: 4}
-          FillType: apple
-          CoverType: cold
-          GeneratorType: 
-          IsEmptySlot: 0
-        - Position: {x: 1, y: 5}
-          FillType: cocos
-          CoverType: 
-          GeneratorType: standart
           IsEmptySlot: 0
         - Position: {x: 2, y: 0}
-          FillType: banana
+          FillType: 
           CoverType: 
           GeneratorType: 
           IsEmptySlot: 0
         - Position: {x: 2, y: 1}
-          FillType: pancake
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 2, y: 2}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 2, y: 3}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 3, y: 0}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 3, y: 1}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 3, y: 2}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 3, y: 3}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+  - id:
+      id: Level_1
+    obj:
+      TargetScore: 30
+      FieldSize: {x: 5, y: 5}
+      SlotCells:
+      - CellType: gen_1
+        Cells:
+        - Position: {x: 0, y: 0}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 0, y: 1}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 0, y: 2}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 0, y: 3}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 0, y: 4}
+          FillType: 
+          CoverType: 
+          GeneratorType: standart
+          IsEmptySlot: 0
+        - Position: {x: 1, y: 0}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 1, y: 1}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 1, y: 2}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 1, y: 3}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 1, y: 4}
+          FillType: 
+          CoverType: 
+          GeneratorType: standart
+          IsEmptySlot: 0
+        - Position: {x: 2, y: 0}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 2, y: 1}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 2, y: 2}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 2, y: 3}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 2, y: 4}
+          FillType: 
+          CoverType: 
+          GeneratorType: standart
+          IsEmptySlot: 0
+        - Position: {x: 3, y: 4}
+          FillType: 
+          CoverType: 
+          GeneratorType: standart
+          IsEmptySlot: 0
+        - Position: {x: 3, y: 3}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 3, y: 2}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 3, y: 1}
+          FillType: apple
+          CoverType: cold
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 3, y: 0}
+          FillType: apple
+          CoverType: cold
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 4, y: 0}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 4, y: 1}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 4, y: 2}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 4, y: 3}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 4, y: 4}
+          FillType: 
+          CoverType: 
+          GeneratorType: standart
+          IsEmptySlot: 0
+  - id:
+      id: Level_2
+    obj:
+      TargetScore: 30
+      FieldSize: {x: 6, y: 6}
+      SlotCells:
+      - CellType: gen_1
+        Cells:
+        - Position: {x: 0, y: 0}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 0, y: 1}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 0, y: 2}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 0, y: 3}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 0, y: 4}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 0, y: 5}
+          FillType: 
+          CoverType: 
+          GeneratorType: standart
+          IsEmptySlot: 0
+        - Position: {x: 1, y: 0}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 1, y: 1}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 1, y: 2}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 1, y: 3}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 1, y: 4}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 1, y: 5}
+          FillType: 
+          CoverType: 
+          GeneratorType: standart
+          IsEmptySlot: 0
+        - Position: {x: 2, y: 0}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 2, y: 1}
+          FillType: apple
           CoverType: cold
           GeneratorType: 
           IsEmptySlot: 0
@@ -96,77 +318,360 @@ MonoBehaviour:
           GeneratorType: 
           IsEmptySlot: 1
         - Position: {x: 2, y: 3}
-          FillType: icecream
+          FillType: 
           CoverType: 
           GeneratorType: 
           IsEmptySlot: 0
         - Position: {x: 2, y: 4}
-          FillType: icecream
+          FillType: 
           CoverType: 
           GeneratorType: 
           IsEmptySlot: 0
         - Position: {x: 2, y: 5}
-          FillType: icecream
+          FillType: 
           CoverType: 
           GeneratorType: standart
           IsEmptySlot: 0
         - Position: {x: 3, y: 5}
-          FillType: icecream
+          FillType: 
           CoverType: 
-          GeneratorType: standart
-          IsEmptySlot: 0
+          GeneratorType: 
+          IsEmptySlot: 1
         - Position: {x: 3, y: 4}
-          FillType: icecream
+          FillType: 
           CoverType: 
           GeneratorType: 
           IsEmptySlot: 0
         - Position: {x: 3, y: 3}
-          FillType: icecream
+          FillType: 
           CoverType: 
           GeneratorType: 
           IsEmptySlot: 0
         - Position: {x: 3, y: 2}
-          FillType: icecream
+          FillType: 
           CoverType: 
           GeneratorType: 
           IsEmptySlot: 0
         - Position: {x: 3, y: 1}
-          FillType: icecream
+          FillType: apple
           CoverType: cold
           GeneratorType: 
           IsEmptySlot: 0
         - Position: {x: 3, y: 0}
-          FillType: icecream
+          FillType: 
           CoverType: 
           GeneratorType: 
           IsEmptySlot: 0
         - Position: {x: 4, y: 0}
-          FillType: icecream
+          FillType: 
           CoverType: 
-          GeneratorType: standart
+          GeneratorType: 
           IsEmptySlot: 0
         - Position: {x: 4, y: 1}
-          FillType: icecream
+          FillType: 
           CoverType: 
           GeneratorType: 
           IsEmptySlot: 0
         - Position: {x: 4, y: 2}
-          FillType: icecream
+          FillType: 
           CoverType: 
           GeneratorType: 
           IsEmptySlot: 0
         - Position: {x: 4, y: 3}
-          FillType: icecream
+          FillType: 
           CoverType: 
           GeneratorType: 
           IsEmptySlot: 0
         - Position: {x: 4, y: 4}
-          FillType: icecream
+          FillType: 
           CoverType: 
           GeneratorType: 
           IsEmptySlot: 0
         - Position: {x: 4, y: 5}
-          FillType: icecream
+          FillType: 
+          CoverType: 
+          GeneratorType: apple_banana_icecream
+          IsEmptySlot: 0
+        - Position: {x: 5, y: 0}
+          FillType: 
           CoverType: 
           GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 5, y: 1}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 5, y: 2}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 5, y: 3}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 5, y: 4}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 5, y: 5}
+          FillType: 
+          CoverType: 
+          GeneratorType: standart
+          IsEmptySlot: 0
+  - id:
+      id: Level_3
+    obj:
+      TargetScore: 30
+      FieldSize: {x: 7, y: 7}
+      SlotCells:
+      - CellType: gen_1
+        Cells:
+        - Position: {x: 0, y: 0}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 0, y: 1}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 0, y: 2}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 0, y: 3}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 0, y: 4}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 0, y: 5}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 1, y: 0}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 1, y: 1}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 1, y: 2}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 1, y: 3}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 1, y: 4}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 1, y: 5}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 2, y: 0}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 2, y: 1}
+          FillType: apple
+          CoverType: cold
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 2, y: 2}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 1
+        - Position: {x: 2, y: 3}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 2, y: 4}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 2, y: 5}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 3, y: 5}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 1
+        - Position: {x: 3, y: 4}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 3, y: 3}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 3, y: 2}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 3, y: 1}
+          FillType: apple
+          CoverType: cold
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 3, y: 0}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 4, y: 0}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 4, y: 1}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 4, y: 2}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 4, y: 3}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 4, y: 4}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 4, y: 5}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 5, y: 0}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 5, y: 1}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 5, y: 2}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 5, y: 3}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 5, y: 4}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 5, y: 5}
+          FillType: 
+          CoverType: 
+          GeneratorType: apple_banana_icecream
+          IsEmptySlot: 0
+        - Position: {x: 6, y: 6}
+          FillType: 
+          CoverType: 
+          GeneratorType: standart
+          IsEmptySlot: 0
+        - Position: {x: 6, y: 5}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 6, y: 4}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 6, y: 3}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 6, y: 2}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 6, y: 1}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 6, y: 0}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 5, y: 6}
+          FillType: 
+          CoverType: 
+          GeneratorType: standart
+          IsEmptySlot: 0
+        - Position: {x: 4, y: 6}
+          FillType: 
+          CoverType: 
+          GeneratorType: standart
+          IsEmptySlot: 0
+        - Position: {x: 3, y: 6}
+          FillType: 
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 2, y: 6}
+          FillType: 
+          CoverType: 
+          GeneratorType: standart
+          IsEmptySlot: 0
+        - Position: {x: 1, y: 6}
+          FillType: 
+          CoverType: 
+          GeneratorType: standart
+          IsEmptySlot: 0
+        - Position: {x: 0, y: 6}
+          FillType: 
+          CoverType: 
+          GeneratorType: standart
           IsEmptySlot: 0

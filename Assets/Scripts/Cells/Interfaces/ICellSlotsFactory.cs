@@ -14,11 +14,13 @@ public interface ICellSlotsFactory
 [System.Serializable]
 public struct CellsSlotsConfig
 {
+    [SerializeField] public int TargetScore;
     [SerializeField] public Vector2 FieldSize;
     [SerializeField] public CellConfigs[] SlotCells;
 
-    public CellsSlotsConfig(CellConfigs[] slotCells, Vector2 fieldSize)
+    public CellsSlotsConfig(CellConfigs[] slotCells, Vector2 fieldSize, int targetScore)
     {
+        TargetScore = targetScore;
         FieldSize = fieldSize;
         SlotCells = slotCells;
     }

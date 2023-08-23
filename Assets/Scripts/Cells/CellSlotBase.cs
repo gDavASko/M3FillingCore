@@ -4,7 +4,10 @@ using UnityEngine.Pool;
 
 public class CellSlotBase : MonoBehaviour, ICellSlot
 {
-    [SerializeField] private Transform _mainBG = null;
+    [SerializeField] private SpriteRenderer _mainBG = null;
+    [SerializeField] private Sprite _oddBG = null;
+    [SerializeField] private Sprite _evenBG = null;
+
     [SerializeField] private Transform _emptyBG = null;
     [SerializeField] private Transform _coverTrs = null;
     [SerializeField] private Transform _chipTrs = null;
@@ -35,6 +38,7 @@ public class CellSlotBase : MonoBehaviour, ICellSlot
 
         _generator = generator;
 
+        _mainBG.sprite = (int)info.Position.x % 2 == (int)info.Position.y % 2 ? _evenBG : _oddBG;
         _mainBG.gameObject.SetActive(!info.IsEmptySlot);
 
         if(_emptyBG != null)
@@ -125,7 +129,7 @@ public class CellSlotBase : MonoBehaviour, ICellSlot
 
     public void DestroySelf()
     {
-        Debug.LogError($"[{name}] DestroySelf!");
+        //Debug.LogError($"[{name}] DestroySelf!");
         ReleaseComponents();
         Destroy(this.gameObject);
     }

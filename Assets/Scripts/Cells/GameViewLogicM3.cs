@@ -31,9 +31,19 @@ public class GameViewLogicM3 : MonoBehaviour, IGameViewLogic
         _gameEvents = gameEvents;
         _gameEvents.OnGameStart += OnGameStart;
         _gameEvents.OnGameRestart += OnGameRestart;
+        _gameEvents.OnStartCommand += CheckGenerators;
+        _gameEvents.OnGameEnd += OnGameEnd;
 
         _viewEvents = viewEvents;
         _viewEvents.OnLoadView += OnLoadView;
+    }
+
+    private void OnGameEnd()
+    {
+        foreach (var slot in _logics)
+        {
+            slot.Interactive = false;
+        }
     }
 
     private void OnGameRestart()
@@ -43,11 +53,13 @@ public class GameViewLogicM3 : MonoBehaviour, IGameViewLogic
 
     private void OnSlotGeneratorGenerate(ICellLogic slot)
     {
-        TryGenerateNewChip(slot);
+        StartCoroutine(TryGenerateNewChip(slot));
     }
 
-    private void TryGenerateNewChip(ICellLogic slot)
+    private IEnumerator TryGenerateNewChip(ICellLogic slot)
     {
+        yield return new WaitForFixedUpdate();
+
         if (slot.Slot.Chip == null)
         {
             if (slot.Slot.Generator != null)
@@ -96,7 +108,7 @@ public class GameViewLogicM3 : MonoBehaviour, IGameViewLogic
     {
         foreach (var generator in _cellGenerators)
         {
-            TryGenerateNewChip(generator);
+            StartCoroutine(TryGenerateNewChip(generator));
         }
     }
 
@@ -133,6 +145,9 @@ public class GameViewLogicM3 : MonoBehaviour, IGameViewLogic
         _slotEvents.OnGeneratorEmpty -= OnSlotGeneratorGenerate;
 
         _gameEvents.OnGameStart -= OnGameStart;
+        _gameEvents.OnGameRestart -= OnGameRestart;
+        _gameEvents.OnStartCommand -= CheckGenerators;
+        _gameEvents.OnGameEnd -= OnGameEnd;
 
         _viewEvents.OnLoadView -= OnLoadView;
     }

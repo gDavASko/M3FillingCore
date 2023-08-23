@@ -20,5 +20,5 @@ public interface ICellLogic: IDisposable, IPointerClickHandler
     void ClickNear(ref List<ICellLogic> sameChips, string chipId);
     void AffectSlot();
     void ProcessNewChip(IChip chip);
-    void TryPushDownChip(bool delayed);
+    void TryPushDownChip();
 }

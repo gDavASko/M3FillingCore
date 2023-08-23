@@ -119,7 +119,7 @@ public class ChipObjectBase : MonoBehaviour, IChip
         Vector3 initPos = transform.localPosition;
         Vector3 targetPos = Vector3.zero;
 
-        for (float i = 0; i <= 1f; i += 0.15f)
+        for (float i = 0; i <= 1f; i += 0.2f)
         {
             transform.localPosition = Vector3.Lerp(initPos, targetPos, i);
             yield return _waiter;

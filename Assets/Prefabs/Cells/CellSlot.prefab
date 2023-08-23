@@ -80,7 +80,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fc0f229da393b54c984c51d239dc334, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mainBG: {fileID: 4685591746036015876}
+  _mainBG: {fileID: 3944226830598314316}
+  _oddBG: {fileID: 21300000, guid: 84833f86c21f31148a11b976818bdcec, type: 3}
+  _evenBG: {fileID: 21300000, guid: a4a6880f59240534ebe43d1a79696d6f, type: 3}
   _emptyBG: {fileID: 4128926453838724081}
   _coverTrs: {fileID: 2962634342035632021}
   _chipTrs: {fileID: 2457150266528376524}
