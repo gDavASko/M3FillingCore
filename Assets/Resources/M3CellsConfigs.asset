@@ -16,7 +16,7 @@ MonoBehaviour:
   - id:
       id: Level_0
     obj:
-      FieldSize: {x: 4, y: 6}
+      FieldSize: {x: 5, y: 6}
       SlotCells:
       - CellType: gen_1
         Cells:
@@ -136,6 +136,36 @@ MonoBehaviour:
           GeneratorType: 
           IsEmptySlot: 0
         - Position: {x: 3, y: 0}
+          FillType: icecream
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 4, y: 0}
+          FillType: icecream
+          CoverType: 
+          GeneratorType: standart
+          IsEmptySlot: 0
+        - Position: {x: 4, y: 1}
+          FillType: icecream
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 4, y: 2}
+          FillType: icecream
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 4, y: 3}
+          FillType: icecream
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 4, y: 4}
+          FillType: icecream
+          CoverType: 
+          GeneratorType: 
+          IsEmptySlot: 0
+        - Position: {x: 4, y: 5}
           FillType: icecream
           CoverType: 
           GeneratorType: 
