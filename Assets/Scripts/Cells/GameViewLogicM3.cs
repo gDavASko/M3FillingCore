@@ -17,6 +17,8 @@ public class GameViewLogicM3 : MonoBehaviour, IGameViewLogic
 
     private CellsSlotsConfig? _currentConfig = null;
     private Coroutine _accessChangePlay = null;
+    private Coroutine _checkEmptyPlay = null;
+    private bool _blocked = false;
 
     public void Construct(ICellSlotsFactory factory, IPooledCustomFactory<IChip> chipFactory, SlotEvents slotEvents,
         GameEvents gameEvents, ViewEvents viewEvents)
@@ -28,7 +30,9 @@ public class GameViewLogicM3 : MonoBehaviour, IGameViewLogic
         _slotEvents.OnAddedSlot += OnSlotAdded;
         _slotEvents.OnSlotsViewCreated += OnSlotsCreated;
         _slotEvents.OnGeneratorEmpty += OnSlotGeneratorGenerate;
-        _slotEvents.OnChipMoved += UpdateAccess;
+        _slotEvents.OnChipMoved += OnCheckEmptyCells;
+        _slotEvents.OnChipMoved += OnBlockUserInput;
+        _slotEvents.OnSlotAffected += OnCheckEmptyCells;
 
         _gameEvents = gameEvents;
         _gameEvents.OnGameStart += OnGameStart;
@@ -39,20 +43,49 @@ public class GameViewLogicM3 : MonoBehaviour, IGameViewLogic
         _viewEvents.OnLoadView += OnLoadView;
     }
 
-    private void UpdateAccess()
+    private void OnBlockUserInput()
     {
         if(_accessChangePlay != null)
             StopCoroutine(_accessChangePlay);
 
-        _accessChangePlay = StartCoroutine(UpdateInteractives());
+        _accessChangePlay = StartCoroutine(UpdateAccessPlay());
     }
 
-    private IEnumerator UpdateInteractives()
+    private IEnumerator UpdateAccessPlay()
     {
-        SetInteractiveStates(false);
+        if (!_blocked)
+        {
+            SetInteractiveStates(false);
+        }
+
         yield return new WaitForSecondsRealtime(0.1f);
         SetInteractiveStates(true);
+    }
 
+    private void OnCheckEmptyCells()
+    {
+        if(_checkEmptyPlay != null)
+            StopCoroutine(_checkEmptyPlay);
+
+        _checkEmptyPlay = StartCoroutine(CheckEmptyCellPlay());
+    }
+
+    private IEnumerator CheckEmptyCellPlay()
+    {
+        yield return new WaitForSecondsRealtime(0.5f);
+        CheckEmptyCells();
+    }
+
+    private void CheckEmptyCells()
+    {
+        foreach (var logic in _logics)
+        {
+            if (logic.Slot.Chip == null && logic.Slot.CanPutChip)
+            {
+                logic.CallNearChip();
+                return;
+            }
+        }
     }
 
     private void SetInteractiveStates(bool state)
@@ -61,14 +94,14 @@ public class GameViewLogicM3 : MonoBehaviour, IGameViewLogic
         {
             slot.Interactive = state;
         }
+
+        _blocked = !state;
     }
 
     private void OnGameEnd()
     {
         if(_accessChangePlay != null)
             StopCoroutine(_accessChangePlay);
-
-        SetInteractiveStates(false);
     }
 
     private void OnSlotGeneratorGenerate(ICellLogic slot)
@@ -80,7 +113,7 @@ public class GameViewLogicM3 : MonoBehaviour, IGameViewLogic
     {
         yield return new WaitForFixedUpdate();
 
-        if (slot.Slot.Chip == null)
+        if (slot != null && slot.Slot != null && slot.Slot.Chip == null)
         {
             if (slot.Slot.Generator != null)
             {
@@ -163,6 +196,9 @@ public class GameViewLogicM3 : MonoBehaviour, IGameViewLogic
         _slotEvents.OnAddedSlot -= OnSlotAdded;
         _slotEvents.OnSlotsViewCreated -= OnSlotsCreated;
         _slotEvents.OnGeneratorEmpty -= OnSlotGeneratorGenerate;
+        _slotEvents.OnChipMoved -= CheckEmptyCells;
+        _slotEvents.OnChipMoved -= OnBlockUserInput;
+        _slotEvents.OnSlotAffected -= CheckEmptyCells;
 
         _gameEvents.OnGameStart -= OnGameStart;
         _gameEvents.OnStartCommand -= CheckGenerators;

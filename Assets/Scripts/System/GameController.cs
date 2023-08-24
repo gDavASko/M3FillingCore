@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -10,6 +11,11 @@ public class GameController : MonoBehaviour
     private M3CellsConfigs _configs = null;
 
     private CellsSlotsConfig _currentConfig = default;
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(this);
+    }
 
     public void Construct(ICellSlotsFactory factory, M3CellsConfigs configs, SlotEvents slotEvents,
         GameEvents gameEvents, ViewEvents viewEvents, IStatistics statistics)
@@ -57,13 +63,5 @@ public class GameController : MonoBehaviour
     {
         _currentConfig = _configs.GetRandomConfig();
         _viewEvents.OnLoadView?.Invoke(_currentConfig);
-    }
-
-    private void OnDestroy()
-    {
-        _gameEvents.OnGameNextLevel -= OnNextLoad;
-
-        _slotEvents.OnSlotsViewCreated -= OnSlotsCreated;
-        _slotEvents.OnSlotAffected -= AddScoreAndCheck;
     }
 }

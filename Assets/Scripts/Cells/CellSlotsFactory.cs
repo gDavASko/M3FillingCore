@@ -21,6 +21,11 @@ public class CellSlotsFactory : MonoBehaviour, ICellSlotsFactory
 
     public bool Inited { get; private set; } = false;
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(this);
+    }
+
     public void Construct(IPooledCustomFactory<IChip> componentFactory, IPooledCustomFactory<ICover> coverFactory,
         IPooledCustomFactory<IGenerator> generatorFactory, SlotEvents slotEvents, GameParameters parameters)
     {

@@ -6,9 +6,30 @@ public class M3CellsConfigs : ScriptableObject
 {
    [SerializeField] private List<ObjectIDPair<StringID, CellsSlotsConfig>> configs = null;
 
+   private List<CellsSlotsConfig> _enabledConfigs = new List<CellsSlotsConfig>();
+
+   private List<CellsSlotsConfig> EnabledConfigs
+   {
+      get
+      {
+         if (_enabledConfigs.Count == 0)
+         {
+            foreach (var config in configs)
+            {
+               if(config.Obj.Enabled)
+                  _enabledConfigs.Add(config.Obj);
+            }
+         }
+
+         return _enabledConfigs;
+      }
+   }
+
    public CellsSlotsConfig GetRandomConfig()
    {
-      return configs[Random.Range(0, configs.Count - 1)].Obj;
+      var config = EnabledConfigs[Random.Range(0, EnabledConfigs.Count - 1)];
+      EnabledConfigs.Remove(config);
+      return config;
    }
 
    public void SaveSlotsConfig(ObjectIDPair<StringID, CellsSlotsConfig> config)

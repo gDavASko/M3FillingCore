@@ -14,96 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   configs:
   - id:
-      id: Level_0
-    obj:
-      TargetScore: 50
-      FieldSize: {x: 4, y: 4}
-      SlotCells:
-      - CellType: gen_1
-        Cells:
-        - Position: {x: 0, y: 0}
-          FillType: 
-          CoverType: 
-          GeneratorType: 
-          IsEmptySlot: 0
-        - Position: {x: 0, y: 1}
-          FillType: 
-          CoverType: 
-          GeneratorType: 
-          IsEmptySlot: 0
-        - Position: {x: 0, y: 2}
-          FillType: 
-          CoverType: 
-          GeneratorType: 
-          IsEmptySlot: 0
-        - Position: {x: 0, y: 3}
-          FillType: 
-          CoverType: 
-          GeneratorType: icecream_cocoa
-          IsEmptySlot: 0
-        - Position: {x: 1, y: 0}
-          FillType: 
-          CoverType: 
-          GeneratorType: 
-          IsEmptySlot: 0
-        - Position: {x: 1, y: 1}
-          FillType: 
-          CoverType: 
-          GeneratorType: 
-          IsEmptySlot: 0
-        - Position: {x: 1, y: 2}
-          FillType: 
-          CoverType: 
-          GeneratorType: 
-          IsEmptySlot: 0
-        - Position: {x: 1, y: 3}
-          FillType: 
-          CoverType: 
-          GeneratorType: icecream_cocoa
-          IsEmptySlot: 0
-        - Position: {x: 2, y: 0}
-          FillType: 
-          CoverType: 
-          GeneratorType: 
-          IsEmptySlot: 0
-        - Position: {x: 2, y: 1}
-          FillType: 
-          CoverType: 
-          GeneratorType: 
-          IsEmptySlot: 0
-        - Position: {x: 2, y: 2}
-          FillType: 
-          CoverType: 
-          GeneratorType: 
-          IsEmptySlot: 0
-        - Position: {x: 2, y: 3}
-          FillType: 
-          CoverType: 
-          GeneratorType: icecream_cocoa
-          IsEmptySlot: 0
-        - Position: {x: 3, y: 0}
-          FillType: 
-          CoverType: 
-          GeneratorType: 
-          IsEmptySlot: 0
-        - Position: {x: 3, y: 1}
-          FillType: 
-          CoverType: 
-          GeneratorType: 
-          IsEmptySlot: 0
-        - Position: {x: 3, y: 2}
-          FillType: 
-          CoverType: 
-          GeneratorType: 
-          IsEmptySlot: 0
-        - Position: {x: 3, y: 3}
-          FillType: 
-          CoverType: 
-          GeneratorType: icecream_cocoa
-          IsEmptySlot: 0
-  - id:
       id: Level_1
     obj:
+      Enabled: 1
       TargetScore: 30
       FieldSize: {x: 5, y: 5}
       SlotCells:
@@ -237,6 +150,7 @@ MonoBehaviour:
   - id:
       id: Level_2
     obj:
+      Enabled: 1
       TargetScore: 30
       FieldSize: {x: 6, y: 6}
       SlotCells:
@@ -425,6 +339,7 @@ MonoBehaviour:
   - id:
       id: Level_3
     obj:
+      Enabled: 1
       TargetScore: 30
       FieldSize: {x: 7, y: 7}
       SlotCells:
@@ -608,7 +523,7 @@ MonoBehaviour:
         - Position: {x: 5, y: 5}
           FillType: 
           CoverType: 
-          GeneratorType: apple_banana_icecream
+          GeneratorType: 
           IsEmptySlot: 0
         - Position: {x: 6, y: 6}
           FillType: 
@@ -658,7 +573,7 @@ MonoBehaviour:
         - Position: {x: 3, y: 6}
           FillType: 
           CoverType: 
-          GeneratorType: 
+          GeneratorType: standart
           IsEmptySlot: 0
         - Position: {x: 2, y: 6}
           FillType: 
@@ -668,7 +583,7 @@ MonoBehaviour:
         - Position: {x: 1, y: 6}
           FillType: 
           CoverType: 
-          GeneratorType: standart
+          GeneratorType: 
           IsEmptySlot: 0
         - Position: {x: 0, y: 6}
           FillType: 

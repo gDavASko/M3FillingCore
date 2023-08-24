@@ -81,7 +81,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _slotPrefab: {fileID: 4468496267389567846, guid: 6060b198b4eecfa4a8463d2645011212, type: 3}
   _slotsRoot: {fileID: 4013502746138313973}
-  _scaleMultPositions: {x: 1, y: 1}
   _slotsZCoordinate: -0.1
 --- !u!114 &1427657648
 MonoBehaviour:
@@ -149,3 +148,9 @@ MonoBehaviour:
     - id:
         id: standart
       obj: {fileID: 3059808256361769765, guid: 37c093b9428a4384d94e590ce852fffe, type: 3}
+    - id:
+        id: icecream_cocoa
+      obj: {fileID: 3059808256361769765, guid: 6f0a4edb68842fa459cc97fd12be3951, type: 3}
+    - id:
+        id: apple_banana_icecream
+      obj: {fileID: 3059808256361769765, guid: b013fb359662aba4a9a9d96791f33576, type: 3}
